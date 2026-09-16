@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aajseKaam.in | Kaam, Worker & Property</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:#f5f7fb;color:#172033;line-height:1.5;}
+
+/* HEADER */
+header{background:#0b3d91;color:white;padding:15px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;position:sticky;top:0;z-index:5000;box-shadow:0 3px 15px rgba(0,0,0,.15);}
+.logo{font-size:28px;font-weight:bold;white-space:nowrap;}
+.logo span{color:#ffd54a;}
+nav{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;}
+nav a{color:white;text-decoration:none;font-weight:bold;padding:8px 9px;border-radius:7px;cursor:pointer;}
+nav a:hover{background:rgba(255,255,255,.12);}
+.language{padding:9px 10px;border-radius:8px;border:none;cursor:pointer;font-size:14px;background:white;color:#172033;}
+
+/* HERO */
+.hero{padding:60px 5%;text-align:center;background:linear-gradient(135deg,#eaf2ff,#ffffff);}
+.hero h1{font-size:40px;color:#0b3d91;margin-bottom:12px;}
+.hero h2{font-size:25px;color:#ff6b00;margin-bottom:10px;}
+.hero p{font-size:19px;color:#526071;margin-bottom:28px;}
+.main-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+
+/* BUTTONS */
+.btn{padding:14px 22px;border:none;border-radius:10px;background:#ff8c00;color:white;font-weight:bold;font-size:16px;cursor:pointer;transition:.2s;}
+.btn:hover{transform:translateY(-1px);opacity:.94;}
+.btn.blue{background:#0b3d91;}
+.btn.green{background:#168a45;}
+.btn.purple{background:#6a1b9a;}
+.btn.red{background:#d32f2f;}
+.btn.gray{background:#687386;}
+
+/* SECTIONS */
+.section{padding:48px 5%;}
+.section h2{text-align:center;margin-bottom:28px;color:#0b3d91;font-size:30px;}
+.job-section{background:#fff8e8;}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;max-width:1100px;margin:auto;}
+.card{background:white;padding:25px 15px;text-align:center;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.08);border:1px solid #edf0f5;}
+.card:hover{transform:translateY(-2px);}
+.card .icon{font-size:42px;margin-bottom:10px;}
+.card h3{color:#172033;margin-bottom:8px;}
+.card p{color:#687386;font-size:15px;margin-bottom:12px;}
+
+/* JOB BOX */
+.job-box{max-width:900px;margin:auto;background:white;padding:25px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.job-box h3{color:#0b3d91;margin-bottom:15px;font-size:23px;}
+.search-area{display:flex;gap:10px;flex-wrap:wrap;}
+.search-area input,.search-area select{flex:1;min-width:200px;padding:14px;border:1px solid #ccd5e2;border-radius:9px;font-size:16px;background:white;}
+
+/* EMPTY JOB */
+.empty-job{text-align:center;padding:40px 20px;margin-top:25px;border:2px dashed #ccd5e2;border-radius:12px;background:#fafafa;}
+.empty-job .big-icon{font-size:45px;margin-bottom:10px;}
+.empty-job h3{margin-bottom:8px;}
+.empty-job p{color:#687386;font-size:16px;}
+
+/* FORMS */
+.form-box{max-width:700px;margin:auto;background:white;padding:25px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.form-box input,.form-box select,.form-box textarea{width:100%;padding:14px;margin-bottom:6px;border:1px solid #ccd5e2;border-radius:9px;font-size:16px;background:white;}
+.form-box textarea{min-height:110px;resize:vertical;}
+.field-label{font-size:13px;color:#0b3d91;font-weight:bold;margin-bottom:5px;display:block;}
+.field-gap{margin-bottom:14px;}
+
+/* FLOW */
+.flow{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;text-align:center;}
+.flow-step{background:white;padding:20px 10px;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.07);font-weight:bold;}
+.flow-icon{font-size:32px;margin-bottom:8px;}
+
+/* JOB LIST */
+.job-list{max-width:900px;margin:25px auto 0;display:grid;gap:15px;}
+.job-card{background:white;padding:20px;border-radius:13px;border-left:5px solid #ff8c00;box-shadow:0 3px 12px rgba(0,0,0,.08);}
+.job-card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px;}
+.job-card h3{color:#0b3d91;}
+.job-id{font-size:12px;color:#9aa5b5;}
+.job-card p{color:#526071;margin-bottom:5px;}
+.job-card-footer{margin-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+
+/* REGISTRATION MODAL */
+.reg-overlay{position:fixed;inset:0;background:rgba(11,61,145,.78);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px;}
+.reg-overlay.show{display:flex;}
+.reg-box{position:relative;background:white;max-width:500px;width:100%;border-radius:18px;padding:30px 24px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.3);max-height:92vh;overflow-y:auto;}
+.reg-box h2{color:#0b3d91;font-size:23px;margin-bottom:8px;}
+.reg-box>p{color:#526071;margin-bottom:20px;font-size:15px;}
+.reg-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#777;}
+.role-options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px;}
+.role-card{padding:15px 7px;border:2px solid #ccd5e2;border-radius:12px;background:#fff;cursor:pointer;font-weight:bold;font-size:13px;color:#172033;}
+.role-card:hover{border-color:#0b3d91;}
+.role-card .icon{font-size:30px;margin-bottom:6px;}
+.role-card.selected{border-color:#0b3d91;background:#eaf2ff;}
+.reg-box input{width:100%;padding:13px;margin-bottom:12px;border:1px solid #ccd5e2;border-radius:9px;font-size:15px;}
+.reg-error{color:#d32f2f;font-size:14px;margin-bottom:12px;background:#fff0f0;padding:8px;border-radius:7px;}
+.reg-success{background:#eaf7ee;border:1px solid #b9e3c8;padding:15px;border-radius:10px;}
+#membershipCodeDisplay{background:#eaf7ee;color:#168a45;border:2px dashed #168a45;border-radius:10px;padding:14px;font-size:21px;letter-spacing:1px;margin:10px 0 20px;}
+
+/* TERMS CHECKBOX */
+.terms-box{text-align:left;background:#f7f9fc;border:1px solid #dce2ea;border-radius:10px;padding:13px;margin:12px 0 15px;}
+.terms-label{display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:14px;color:#526071;}
+.terms-label input{width:18px;height:18px;margin:2px 0 0;flex:none;cursor:pointer;}
+.terms-label a{color:#0b3d91;font-weight:bold;text-decoration:underline;}
+
+/* DASHBOARD */
+.dashboard-box{max-width:700px;margin:auto;background:white;padding:25px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.08);}
+.membership-code-box{text-align:center;background:#eaf7ee;border:2px dashed #168a45;border-radius:12px;padding:18px;margin:15px 0 20px;}
+.membership-code-box h3{color:#168a45;font-size:25px;letter-spacing:1px;word-break:break-all;}
+.dashboard-info{background:#f7f9fc;padding:15px;border-radius:10px;margin-bottom:15px;}
+.dashboard-info p{margin-bottom:7px;}
+.dashboard-info p:last-child{margin-bottom:0;}
+.dashboard-purpose{text-align:left;background:#fff8e8;border-radius:10px;padding:16px;margin-bottom:16px;}
+.dashboard-purpose ul{padding-left:20px;color:#526071;line-height:1.9;font-size:14px;}
+.demo-notice{font-size:13px;color:#8a6d1a;background:#fff3e0;padding:10px;border-radius:8px;margin-bottom:16px;}
+.dashboard-box .btn{margin-bottom:10px;width:100%;}
+
+/* LEGAL MODAL */
+.legal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:10000;padding:15px;}
+.legal-overlay.show{display:flex;}
+.legal-box{background:white;width:100%;max-width:850px;max-height:90vh;overflow:hidden;border-radius:18px;box-shadow:0 10px 45px rgba(0,0,0,.35);position:relative;display:flex;flex-direction:column;}
+.legal-header{background:#0b3d91;color:white;padding:18px 50px 18px 20px;position:relative;}
+.legal-header h2{font-size:22px;}
+.legal-close{position:absolute;right:15px;top:12px;background:none;border:none;color:white;font-size:25px;cursor:pointer;}
+.legal-tabs{display:flex;gap:5px;padding:10px;overflow-x:auto;border-bottom:1px solid #ddd;background:#f5f7fb;}
+.legal-tab{border:none;background:white;padding:10px 13px;border-radius:8px;cursor:pointer;white-space:nowrap;font-weight:bold;color:#526071;font-size:13px;}
+.legal-tab.active{background:#0b3d91;color:white;}
+.legal-content{padding:22px;overflow-y:auto;text-align:left;}
+.legal-panel{display:none;}
+.legal-panel.active{display:block;}
+.legal-panel h3{color:#0b3d91;margin-bottom:10px;}
+.legal-panel p,.legal-panel li{color:#526071;font-size:14px;margin-bottom:8px;}
+.legal-panel ul{padding-left:22px;}
+.legal-note{background:#fff8e8;border-left:4px solid #ff8c00;padding:12px;margin:15px 0;border-radius:6px;font-size:13px;}
+
+/* FOOTER */
+footer{background:#10233f;color:white;text-align:center;padding:28px 15px;margin-top:20px;}
+footer p{margin-bottom:8px;}
+.footer-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:12px;}
+.footer-links button{background:none;border:none;color:#fff;cursor:pointer;text-decoration:underline;font-size:14px;}
+.footer-links button:hover{color:#ffd54a;}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);background:#172033;color:white;padding:13px 20px;border-radius:10px;display:none;z-index:20000;max-width:90%;text-align:center;box-shadow:0 5px 20px rgba(0,0,0,.25);}
+.toast.show{display:block;}
+
+/* MOBILE */
+@media(max-width:700px){
+  header{position:relative;padding:13px 4%;}
+  .logo{width:100%;text-align:center;font-size:25px;}
+  nav{width:100%;}
+  nav a{font-size:13px;padding:7px 6px;}
+  .language{font-size:13px;padding:8px;}
+  .hero{padding:45px 5%;}
+  .hero h1{font-size:30px;}
+  .hero h2{font-size:21px;}
+  .hero p{font-size:17px;}
+  .btn{width:100%;max-width:350px;}
+  .cards{grid-template-columns:1fr 1fr;}
+  .flow{grid-template-columns:1fr 1fr;}
+  .role-options{grid-template-columns:1fr 1fr;}
+  .legal-box{max-height:94vh;}
+  .legal-content{padding:16px;}
+}
+@media(max-width:420px){
+  .cards{grid-template-columns:1fr;}
+  .flow{grid-template-columns:1fr 1fr;}
+  .role-options{grid-template-columns:1fr;}
+  .job-box,.form-box,.dashboard-box{padding:18px;}
+  .section{padding:38px 4%;}
+  .section h2{font-size:25px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- REGISTRATION MODAL -->
+<div class="reg-overlay" id="registrationOverlay">
+  <div class="reg-box">
+    <button type="button" class="reg-close" onclick="closeRegistrationOverlay()">✖️</button>
+
+    <h2 class="t" data-en="🔐 Registration / Membership" data-hi="🔐 रजिस्ट्रेशन / मेंबरशिप" data-od="🔐 ପଞ୍ଜୀକରଣ / ସଦସ୍ୟତା"></h2>
+    <p id="regModalSub" class="t" data-en="Please select your role to continue" data-hi="आगे बढ़ने के लिए अपनी भूमिका चुनें" data-od="ଆଗକୁ ବଢିବାକୁ ନିଜର ଭୂମିକା ବାଛନ୍ତୁ"></p>
+
+    <div class="role-options" id="roleOptions">
+      <button type="button" class="role-card" onclick="selectRole('worker',this)">
+        <div class="icon">👷</div>
+        <span class="t" data-en="Worker / Mistri" data-hi="कामगार / मिस्त्री" data-od="ଶ୍ରମିକ / ମିସ୍ତ୍ରୀ"></span>
+      </button>
+      <button type="button" class="role-card" onclick="selectRole('contractor',this)">
+        <div class="icon">🔧</div>
+        <span class="t" data-en="Contractor" data-hi="ठेकेदार" data-od="ଠିକାଦାର"></span>
+      </button>
+      <button type="button" class="role-card" onclick="selectRole('builder',this)">
+        <div class="icon">🏗️</div>
+        <span class="t" data-en="Builder" data-hi="बिल्डर" data-od="ବିଲଡର"></span>
+      </button>
+      <button type="button" class="role-card" onclick="selectRole('owner',this)">
+        <div class="icon">🏠</div>
+        <span class="t" data-en="Homeowner" data-hi="घर मालिक" data-od="ଘର ମାଲିକ"></span>
+      </button>
+    </div>
+
+    <input type="text" id="regName" class="t" data-en="Your Name" data-hi="आपका नाम" data-od="ଆପଣଙ୍କ ନାମ" placeholder="">
+    <input type="tel" id="regMobile" maxlength="10" class="t" data-en="Mobile Number" data-hi="मोबाइल नंबर" data-od="ମୋବାଇଲ ନମ୍ବର" placeholder="">
+
+    <p id="regError" class="reg-error" style="display:none;"></p>
+
+    <div class="terms-box">
+      <label class="terms-label">
+        <input type="checkbox" id="termsConsent">
+        <span>
+          <span class="lang-only" data-lang="en" style="display:none;">I agree to the <a href="#" onclick="openLegalModal('terms');return false;">Terms &amp; Conditions</a> and <a href="#" onclick="openLegalModal('privacy');return false;">Privacy Policy</a>.</span>
+          <span class="lang-only" data-lang="hi">मैं <a href="#" onclick="openLegalModal('terms');return false;">नियम व शर्तों</a> और <a href="#" onclick="openLegalModal('privacy');return false;">प्राइवेसी पॉलिसी</a> से सहमत हूँ।</span>
+          <span class="lang-only" data-lang="od" style="display:none;">ମୁଁ <a href="#" onclick="openLegalModal('terms');return false;">ସର୍ତ୍ତାବଳୀ</a> ଏବଂ <a href="#" onclick="openLegalModal('privacy');return false;">ଗୋପନୀୟତା ନୀତି</a> ସହିତ ସହମତ।</span>
+        </span>
+      </label>
+    </div>
+
+    <button type="button" class="btn green" id="regSubmitBtn" onclick="submitRegistration()" style="width:100%;">
+      <span class="t" data-en="✅ Register & Get Membership Code" data-hi="✅ रजिस्टर करें और मेंबरशिप कोड पाएं" data-od="✅ ପଞ୍ଜୀକରଣ କରନ୍ତୁ ଏବଂ ସଦସ୍ୟତା କୋଡ୍ ପାଆନ୍ତୁ"></span>
+    </button>
+
+    <div id="regSuccessBox" class="reg-success" style="display:none;">
+      <p style="font-weight:bold;color:#168a45;" class="t" data-en="🎉 Registration Successful!" data-hi="🎉 रजिस्ट्रेशन सफल!" data-od="🎉 ପଞ୍ଜୀକରଣ ସଫଳ!"></p>
+      <p class="t" data-en="Your Membership Code:" data-hi="आपका Membership Code:" data-od="ଆପଣଙ୍କ ସଦସ୍ୟତା କୋଡ୍:"></p>
+      <h3 id="membershipCodeDisplay"></h3>
+      <p class="t" data-en="Keep this Membership Code safe." data-hi="इस Membership Code को सुरक्षित रखें।" data-od="ଏହି ସଦସ୍ୟତା କୋଡ୍ ସୁରକ୍ଷିତ ରଖନ୍ତୁ।"></p>
+      <button type="button" class="btn blue" onclick="closeRegistrationModal()" style="width:100%;">
+        <span class="t" data-en="Continue to Website" data-hi="वेबसाइट पर जाएं" data-od="ୱେବସାଇଟକୁ ଯାଆନ୍ତୁ"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- LEGAL MODAL -->
+<div class="legal-overlay" id="legalOverlay">
+  <div class="legal-box">
+    <div class="legal-header">
+      <h2 class="t" data-en="📄 Legal Information" data-hi="📄 कानूनी जानकारी" data-od="📄 ଆଇନଗତ ସୂଚନା"></h2>
+      <button type="button" class="legal-close" onclick="closeLegalModal()">✖️</button>
+    </div>
+
+    <div class="legal-tabs">
+      <button class="legal-tab active" data-tab="terms" onclick="showLegalPanel('terms',this)">
+        <span class="t" data-en="Terms" data-hi="नियम" data-od="ସର୍ତ୍ତ"></span>
+      </button>
+      <button class="legal-tab" data-tab="privacy" onclick="showLegalPanel('privacy',this)">
+        <span class="t" data-en="Privacy" data-hi="प्राइवेसी" data-od="ଗୋପନୀୟତା"></span>
+      </button>
+      <button class="legal-tab" data-tab="membership" onclick="showLegalPanel('membership',this)">
+        <span class="t" data-en="Membership" data-hi="मेंबरशिप" data-od="ସଦସ୍ୟତା"></span>
+      </button>
+      <button class="legal-tab" data-tab="jobs" onclick="showLegalPanel('jobs',this)">
+        <span class="t" data-en="Job Rules" data-hi="जॉब नियम" data-od="କାମ ନିୟମ"></span>
+      </button>
+      <button class="legal-tab" data-tab="property" onclick="showLegalPanel('property',this)">
+        <span class="t" data-en="Property" data-hi="प्रॉपर्टी" data-od="ପ୍ରପର୍ଟି"></span>
+      </button>
+      <button class="legal-tab" data-tab="payment" onclick="showLegalPanel('payment',this)">
+        <span class="t" data-en="Payment" data-hi="भुगतान" data-od="ପାରିଶ୍ରମିକ"></span>
+      </button>
+      <button class="legal-tab" data-tab="safety" onclick="showLegalPanel('safety',this)">
+        <span class="t" data-en="Safety" data-hi="सुरक्षा" data-od="ସୁରକ୍ଷା"></span>
+      </button>
+      <button class="legal-tab" data-tab="agreement" onclick="showLegalPanel('agreement',this)">
+        <span class="t" data-en="Agreement" data-hi="एग्रीमेंट" data-od="ଚୁକ୍ତି"></span>
+      </button>
+      <button class="legal-tab" data-tab="dispute" onclick="showLegalPanel('dispute',this)">
+        <span class="t" data-en="Dispute" data-hi="विवाद" data-od="ବିବାଦ"></span>
+      </button>
+      <button class="legal-tab" data-tab="contact" onclick="showLegalPanel('contact',this)">
+        <span class="t" data-en="Contact" data-hi="संपर्क" data-od="ଯୋଗାଯୋଗ"></span>
+      </button>
+    </div>
+
+    <div class="legal-content">
+
+      <div class="legal-note t" data-en="⚠️ Draft Notice: The detailed text below is currently available in Hindi only. English & Odia versions will be added before final launch, after legal review." data-hi="⚠️ मसौदा सूचना: नीचे दिया गया विस्तृत टेक्स्ट अभी सिर्फ हिन्दी में उपलब्ध है। लॉन्च से पहले कानूनी समीक्षा के बाद English और Odia version भी जोड़े जाएंगे।" data-od="⚠️ ମସଡା ସୂଚନା: ନିମ୍ନରେ ଥିବା ବିସ୍ତୃତ ପାଠ୍ୟ ବର୍ତ୍ତମାନ କେବଳ ହିନ୍ଦୀରେ ଉପଲବ୍ଧ। ଲଞ୍ଚ ପୂର୍ବରୁ ଆଇନଗତ ସମୀକ୍ଷା ପରେ ଇଂରାଜୀ ଏବଂ ଓଡ଼ିଆ ସଂସ୍କରଣ ମଧ୍ୟ ଯୋଡାଯିବ।"></div>
+
+      <div class="legal-panel active" id="legal-terms">
+        <h3>नियम व शर्तें (Terms &amp; Conditions)</h3>
+        <p>AajSeKaam.in एक online platform है जो कामगार, ठेकेदार, बिल्डर और घर मालिकों को आपस में connect करने की सुविधा देता है।</p>
+        <p>सभी users को सही और वास्तविक जानकारी देने का प्रयास करना चाहिए। Platform का दुरुपयोग, फर्जी जानकारी या धोखाधड़ी सख्त मना है।</p>
+        <div class="legal-note">⚠️ किसी भी बड़े काम या property transaction से पहले documents और identity की जांच करें।</div>
+      </div>
+
+      <div class="legal-panel" id="legal-privacy">
+        <h3>प्राइवेसी पॉलिसी (Privacy Policy)</h3>
+        <p>Registration के दौरान नाम, मोबाइल नंबर, role और membership information जैसी जानकारी उपयोग की जा सकती है।</p>
+        <ul>
+          <li>Membership पहचान</li>
+          <li>Job connection</li>
+          <li>Verification</li>
+          <li>Support</li>
+          <li>Security</li>
+        </ul>
+        <div class="legal-note">🔒 Production version में secure database और authentication लगाया जाएगा।</div>
+      </div>
+
+      <div class="legal-panel" id="legal-membership">
+        <h3>मेंबरशिप शर्तें (Membership Rules)</h3>
+        <p>Registration के बाद user को एक unique Membership Code दिया जाएगा।</p>
+        <ul>
+          <li>Worker Membership</li>
+          <li>Contractor Membership</li>
+          <li>Builder Membership</li>
+          <li>Owner Membership</li>
+        </ul>
+        <p>हर व्यक्ति सिर्फ एक Membership Code रखे और उसे सुरक्षित रखे।</p>
+      </div>
+
+      <div class="legal-panel" id="legal-jobs">
+        <h3>काम पोस्ट / हायरिंग नियम (Job Posting Rules)</h3>
+        <ul>
+          <li>Job location सही दें।</li>
+          <li>काम का प्रकार स्पष्ट लिखें।</li>
+          <li>कामगारों की संख्या सही दें।</li>
+          <li>Payment / wage पहले स्पष्ट करें।</li>
+          <li>Fake job post न करें।</li>
+          <li>Illegal work post नहीं किया जा सकता।</li>
+        </ul>
+      </div>
+
+      <div class="legal-panel" id="legal-property">
+        <h3>प्रॉपर्टी लिस्टिंग नियम (Property Rules)</h3>
+        <p>घर, जमीन, apartment और rental property की listing दी जा सकती है।</p>
+        <ul>
+          <li>Ownership verify करें।</li>
+          <li>Property documents check करें।</li>
+          <li>Legal verification करें।</li>
+          <li>Payment से पहले पूरी जांच करें।</li>
+        </ul>
+      </div>
+
+      <div class="legal-panel" id="legal-payment">
+        <h3>भुगतान / रिफंड नीति (Payment / Refund)</h3>
+        <p>अभी AajSeKaam.in पर Registration पूरी तरह मुफ्त है। भविष्य में paid service शुरू होने पर जानकारी पहले से दी जाएगी।</p>
+        <p>Worker/Contractor/Owner के बीच मजदूरी/भुगतान की जिम्मेदारी सीधे उन्हीं की है, platform की नहीं।</p>
+        <div class="legal-note">💰 बिना agreement के बड़ी advance payment करने से बचें।</div>
+      </div>
+
+      <div class="legal-panel" id="legal-safety">
+        <h3>सुरक्षा (Safety)</h3>
+        <ul>
+          <li>Helmet और safety equipment इस्तेमाल करें।</li>
+          <li>Electrical work trained person से करवाएं।</li>
+          <li>Height work में safety व्यवस्था रखें।</li>
+          <li>Construction site सुरक्षित रखें।</li>
+        </ul>
+      </div>
+
+      <div class="legal-panel" id="legal-agreement">
+        <h3>वर्क एग्रीमेंट (Work Agreement)</h3>
+        <p>काम शुरू होने से पहले दोनों parties के बीच Work Agreement होना बेहतर है, जिसमें ये शामिल हो:</p>
+        <ul>
+          <li>Membership Code</li>
+          <li>Work location व Work type</li>
+          <li>Start date / End date</li>
+          <li>Payment व Milestones</li>
+          <li>Material responsibility</li>
+        </ul>
+      </div>
+
+      <div class="legal-panel" id="legal-dispute">
+        <h3>शिकायत / विवाद नीति (Complaint &amp; Dispute)</h3>
+        <p>किसी समस्या की स्थिति में पहले दोनों parties आपसी बातचीत से समाधान करने का प्रयास करें।</p>
+        <p>Agreement, payment records और job details सुरक्षित रखें। गंभीर मामलों में स्थानीय पुलिस/कानूनी सहायता लें।</p>
+      </div>
+
+      <div class="legal-panel" id="legal-contact">
+        <h3>संपर्क करें (Contact Us)</h3>
+        <p>📧 Email: support@aajsekaam.in <i>(placeholder — जल्द अपडेट होगा)</i></p>
+        <p>📞 Phone: [जल्द जोड़ा जाएगा]</p>
+        <p>किसी भी सवाल, शिकायत या सुझाव के लिए बेझिझक संपर्क करें।</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- HEADER -->
+<header>
+  <div class="logo">aajseKaam<span>.in</span></div>
+  <nav>
+    <a href="#home" class="t" data-en="Home" data-hi="होम" data-od="ହୋମ"></a>
+    <a href="#jobs" class="t" data-en="Jobs" data-hi="काम" data-od="କାମ"></a>
+    <a href="#workers" class="t" data-en="Workers" data-hi="कामगार" data-od="ଶ୍ରମିକ"></a>
+    <a href="#property" class="t" data-en="Property" data-hi="प्रॉपर्टी" data-od="ପ୍ରପର୍ଟି"></a>
+    <a href="#postJob" class="t" data-en="Post Job" data-hi="काम पोस्ट करें" data-od="କାମ ପୋଷ୍ଟ"></a>
+    <a href="#" id="registrationNavLink" onclick="openRegistrationModal();return false;">📝 <span class="t" data-en="Registration" data-hi="रजिस्ट्रेशन" data-od="ପଞ୍ଜୀକରଣ"></span></a>
+    <a href="#dashboard" id="dashboardNavLink" style="display:none;">🪪 <span class="t" data-en="Dashboard" data-hi="डैशबोर्ड" data-od="ଡ୍ୟାସବୋର୍ଡ"></span></a>
+    <select class="language" id="langSelect" onchange="changeLanguage(this.value)">
+      <option value="hi">हिन्दी</option>
+      <option value="en">English</option>
+      <option value="od">ଓଡ଼ିଆ</option>
+    </select>
+  </nav>
+</header>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <h1 class="t" data-en="Jobs, Workers &amp; Property — All in One Place" data-hi="काम, कामगार और प्रॉपर्टी — सब एक जगह" data-od="କାମ, ଶ୍ରମିକ ଓ ପ୍ରପର୍ଟି — ସବୁ ଗୋଟିଏ ସ୍ଥାନରେ"></h1>
+  <h2 class="t" data-en="Job Opportunities • End Unemployment from Today" data-hi="काम का मौका • आज से बेकारी खत्म" data-od="କାମର ସୁଯୋଗ • ଆଜିଠାରୁ ବେକାରି ଶେଷ"></h2>
+  <p class="t" data-en="Work for Every Skill, Every Day" data-hi="हर हुनर को हर दिन काम" data-od="ପ୍ରତ୍ୟେକ ଦକ୍ଷତାକୁ ପ୍ରତିଦିନ କାମ"></p>
+
+  <div class="main-buttons">
+    <button class="btn" onclick="goToJobs()">👷 <span class="t" data-en="Find Work" data-hi="काम का मौका" data-od="କାମର ସୁଯୋଗ"></span></button>
+    <button class="btn blue" onclick="goToWorkers()">🔨 <span class="t" data-en="Find Worker" data-hi="कामगार खोजें" data-od="ଶ୍ରମିକ ଖୋଜନ୍ତୁ"></span></button>
+    <button class="btn green" onclick="goToPostJob()">🏗️ <span class="t" data-en="Post a Job" data-hi="काम पोस्ट करें" data-od="କାମ ପୋଷ୍ଟ କରନ୍ତୁ"></span></button>
+    <button class="btn purple" onclick="heroRegistrationAction()">🔐 <span class="t" data-en="Registration / Membership" data-hi="रजिस्ट्रेशन / मेंबरशिप" data-od="ପଞ୍ଜୀକରଣ / ସଦସ୍ୟତା"></span></button>
+  </div>
+</section>
+
+
+<!-- JOBS -->
+<section class="section job-section" id="jobs">
+  <h2>💼 <span class="t" data-en="Job Opportunities" data-hi="काम का मौका" data-od="କାମର ସୁଯୋଗ"></span></h2>
+
+  <div class="job-box">
+    <h3 class="t" data-en="Search Work for Your Skill" data-hi="अपने हुनर का काम खोजें" data-od="ନିଜ ଦକ୍ଷତାର କାମ ଖୋଜନ୍ତୁ"></h3>
+
+    <div class="search-area">
+      <input type="text" id="skillSearch" class="t" data-en="e.g. Raj Mistri, Labour, Painter" data-hi="जैसे: राज मिस्त्री, लेबर, पेंटर" data-od="ଯେପରିକି: ରାଜ ମିସ୍ତ୍ରୀ, ଲେବର, ପେଣ୍ଟର" placeholder="">
+
+      <select id="locationSearch">
+        <option value="" class="t" data-en="Select Location" data-hi="जगह चुनें" data-od="ସ୍ଥାନ ଚୟନ କରନ୍ତୁ"></option>
+        <option value="Nearby" class="t" data-en="Nearby" data-hi="आस-पास" data-od="ନିକଟବର୍ତ୍ତୀ"></option>
+        <option value="Odisha">Odisha</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Chhattisgarh">Chhattisgarh</option>
+        <option value="India" class="t" data-en="India" data-hi="भारत" data-od="ଭାରତ"></option>
+      </select>
+
+      <button class="btn" onclick="searchJobs()">🔎 <span class="t" data-en="Find Work" data-hi="काम खोजें" data-od="କାମ ଖୋଜନ୍ତୁ"></span></button>
+    </div>
+
+    <div id="jobList" class="job-list"></div>
+  </div>
+</section>
+
+
+<!-- WORKERS -->
+<section class="section" id="workers">
+  <h2>👷 <span class="t" data-en="Workers / Masons" data-hi="कामगार / मिस्त्री" data-od="ଶ୍ରମିକ / ମିସ୍ତ୍ରୀ"></span></h2>
+
+  <div class="cards">
+    <div class="card"><div class="icon">🧱</div><h3 class="t" data-en="Mason" data-hi="राज मिस्त्री" data-od="ରାଜ ମିସ୍ତ୍ରୀ"></h3><p class="t" data-en="Brick, plaster &amp; construction work." data-hi="ईंट, प्लास्टर और निर्माण का काम।" data-od="ଇଟା, ପ୍ଲାଷ୍ଟର ଓ ନିର୍ମାଣ କାମ।"></p></div>
+    <div class="card"><div class="icon">🔨</div><h3 class="t" data-en="Carpenter" data-hi="बढ़ई" data-od="କାଠ ମିସ୍ତ୍ରୀ"></h3><p class="t" data-en="Wood &amp; furniture work." data-hi="लकड़ी और फर्नीचर का काम।" data-od="କାଠ ଓ ଫର୍ଣ୍ଣିଚର କାମ।"></p></div>
+    <div class="card"><div class="icon">⚡</div><h3 class="t" data-en="Electrician" data-hi="इलेक्ट्रीशियन" data-od="ଇଲେକ୍ଟ୍ରିସିଆନ୍"></h3><p class="t" data-en="Electrical work." data-hi="बिजली का काम।" data-od="ବିଦ୍ୟୁତ କାମ।"></p></div>
+    <div class="card"><div class="icon">🚰</div><h3 class="t" data-en="Plumber" data-hi="प्लंबर" data-od="ପ୍ଲମ୍ବର"></h3><p class="t" data-en="Water &amp; pipe work." data-hi="पानी और पाइप का काम।" data-od="ପାଣି ଓ ପାଇପ୍ କାମ।"></p></div>
+    <div class="card"><div class="icon">🎨</div><h3 class="t" data-en="Painter" data-hi="पेंटर" data-od="ପେଣ୍ଟର"></h3><p class="t" data-en="Painting &amp; finishing work." data-hi="रंग और फिनिशिंग का काम।" data-od="ରଙ୍ଗ ଓ ଫିନିଶିଂ କାମ।"></p></div>
+    <div class="card"><div class="icon">👷</div><h3 class="t" data-en="Labour / Helper" data-hi="मजदूर / हेल्पर" data-od="ଶ୍ରମିକ / ହେଲ୍ପର"></h3><p class="t" data-en="General construction work." data-hi="सामान्य निर्माण कार्य।" data-od="ସାଧାରଣ ନିର୍ମାଣ କାମ।"></p></div>
+    <div class="card"><div class="icon">🏗️</div><h3 class="t" data-en="Builder" data-hi="बिल्डर" data-od="ବିଲଡର"></h3><p class="t" data-en="Building &amp; construction projects." data-hi="भवन निर्माण परियोजनाएं।" data-od="ନିର୍ମାଣ ପ୍ରକଳ୍ପ।"></p></div>
+    <div class="card"><div class="icon">🔧</div><h3 class="t" data-en="Contractor" data-hi="ठेकेदार" data-od="ଠିକାଦାର"></h3><p class="t" data-en="Construction &amp; labour management." data-hi="निर्माण और लेबर प्रबंधन।" data-od="ନିର୍ମାଣ ଓ ଶ୍ରମିକ ପରିଚାଳନା।"></p></div>
+  </div>
+</section>
+
+
+<!-- POST JOB -->
+<section class="section job-section" id="postJob">
+  <h2>🏗️ <span class="t" data-en="Post a Job" data-hi="काम पोस्ट करें" data-od="କାମ ପୋଷ୍ଟ କରନ୍ତୁ"></span></h2>
+
+  <div class="form-box">
+    <input type="text" id="siteName" class="t" data-en="Site / House Name" data-hi="साइट / घर का नाम" data-od="ସାଇଟ୍ / ଘରର ନାମ" placeholder="">
+    <input type="text" id="siteLocation" class="t" data-en="Work Location" data-hi="काम की जगह" data-od="କାମର ସ୍ଥାନ" placeholder="">
+    <input type="text" id="workType" class="t" data-en="Type of work? e.g. Mason" data-hi="कौन सा काम? जैसे राज मिस्त्री" data-od="କେଉଁ କାମ? ଯେପରିକି ରାଜ ମିସ୍ତ୍ରୀ" placeholder="">
+    <input type="number" id="workerCount" min="1" class="t" data-en="How many workers needed?" data-hi="कितने कामगार चाहिए?" data-od="କେତେ ଜଣ ଶ୍ରମିକ ଦରକାର?" placeholder="">
+    <input type="text" id="wage" class="t" data-en="Wage / Payment" data-hi="मजदूरी / भुगतान" data-od="ମଜୁରୀ / ପାରିଶ୍ରମିକ" placeholder="">
+
+    <label class="field-label t" data-en="🗓️ Work Start Date" data-hi="🗓️ काम शुरू होने की तारीख" data-od="🗓️ କାମ ଆରମ୍ଭ ହେବାର ତାରିଖ"></label>
+    <div class="field-gap"><input type="date" id="startDate"></div>
+
+    <label class="field-label t" data-en="🏁 Work End Date (optional)" data-hi="🏁 काम खत्म होने की तारीख (वैकल्पिक)" data-od="🏁 କାମ ସମାପ୍ତ ହେବାର ତାରିଖ (ଇଚ୍ଛାଧୀନ)"></label>
+    <div class="field-gap"><input type="date" id="endDate"></div>
+
+    <textarea id="workDetails" class="t" data-en="Write a little detail about the work" data-hi="काम की थोड़ी जानकारी लिखें" data-od="କାମ ବିଷୟରେ କିଛି ସୂଚନା ଲେଖନ୍ତୁ" placeholder=""></textarea>
+
+    <button class="btn green" onclick="postJob()" style="width:100%;margin-top:8px;">📢 <span class="t" data-en="Post the Job" data-hi="काम पोस्ट करें" data-od="କାମ ପୋଷ୍ଟ କରନ୍ତୁ"></span></button>
+  </div>
+</section>
+
+
+<!-- WORK FLOW -->
+<section class="section">
+  <h2>🔄 <span class="t" data-en="Work to Finish" data-hi="काम से समाप्ति तक" data-od="କାମରୁ ସମାପ୍ତି ପର୍ଯ୍ୟନ୍ତ"></span></h2>
+
+  <div class="flow">
+    <div class="flow-step"><div class="flow-icon">💼</div><span class="t" data-en="Job" data-hi="काम" data-od="କାମ"></span></div>
+    <div class="flow-step"><div class="flow-icon">👷</div><span class="t" data-en="Worker" data-hi="कामगार" data-od="ଶ୍ରମିକ"></span></div>
+    <div class="flow-step"><div class="flow-icon">📄</div><span class="t" data-en="Agreement" data-hi="एग्रीमेंट" data-od="ଚୁକ୍ତି"></span></div>
+    <div class="flow-step"><div class="flow-icon">▶️</div><span class="t" data-en="Work Starts" data-hi="काम शुरू" data-od="କାମ ଆରମ୍ଭ"></span></div>
+    <div class="flow-step"><div class="flow-icon">📋</div><span class="t" data-en="Milestones" data-hi="माइलस्टोन" data-od="ମାଇଲଖୁଣ୍ଟ"></span></div>
+    <div class="flow-step"><div class="flow-icon">💰</div><span class="t" data-en="Payment" data-hi="भुगतान" data-od="ପାରିଶ୍ରମିକ"></span></div>
+    <div class="flow-step"><div class="flow-icon">✅</div><span class="t" data-en="Work Complete" data-hi="काम पूरा" data-od="କାମ ସମାପ୍ତ"></span></div>
+    <div class="flow-step"><div class="flow-icon">🏁</div><span class="t" data-en="Finish" data-hi="समाप्त" data-od="ସମାପ୍ତ"></span></div>
+  </div>
+</section>
+
+
+<!-- PROPERTY -->
+<section class="section" id="property">
+  <h2>🏠 <span class="t" data-en="Property" data-hi="प्रॉपर्टी" data-od="ପ୍ରପର୍ଟି"></span></h2>
+
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🏡</div>
+      <h3 class="t" data-en="Buy House" data-hi="घर खरीदें" data-od="ଘର କିଣନ୍ତୁ"></h3>
+      <p class="t" data-en="Find a house for yourself." data-hi="अपने लिए घर खोजें।" data-od="ନିଜ ପାଇଁ ଘର ଖୋଜନ୍ତୁ।"></p>
+      <button class="btn blue" onclick="propertyAction('buy-house')"><span class="t" data-en="Search Houses" data-hi="घर खोजें" data-od="ଘର ଖୋଜନ୍ତୁ"></span></button>
+    </div>
+    <div class="card">
+      <div class="icon">🏠</div>
+      <h3 class="t" data-en="Sell House" data-hi="घर बेचें" data-od="ଘର ବିକ୍ରି କରନ୍ତୁ"></h3>
+      <p class="t" data-en="List your house for sale." data-hi="अपना घर बिक्री के लिए रखें।" data-od="ନିଜ ଘର ବିକ୍ରି ପାଇଁ ରଖନ୍ତୁ।"></p>
+      <button class="btn green" onclick="propertyAction('sell-house')"><span class="t" data-en="Sell House" data-hi="घर बेचें" data-od="ଘର ବିକ୍ରି କରନ୍ତୁ"></span></button>
+    </div>
+    <div class="card">
+      <div class="icon">🌳</div>
+      <h3 class="t" data-en="Buy Land" data-hi="जमीन खरीदें" data-od="ଜମି କିଣନ୍ତୁ"></h3>
+      <p class="t" data-en="Find land to build a house." data-hi="घर बनाने के लिए जमीन खोजें।" data-od="ଘର ତିଆରି ପାଇଁ ଜମି ଖୋଜନ୍ତୁ।"></p>
+      <button class="btn blue" onclick="propertyAction('buy-land')"><span class="t" data-en="Search Land" data-hi="जमीन खोजें" data-od="ଜମି ଖୋଜନ୍ତୁ"></span></button>
+    </div>
+    <div class="card">
+      <div class="icon">🌳</div>
+      <h3 class="t" data-en="Sell Land" data-hi="जमीन बेचें" data-od="ଜମି ବିକ୍ରି କରନ୍ତୁ"></h3>
+      <p class="t" data-en="List your land for sale." data-hi="अपनी जमीन बिक्री के लिए रखें।" data-od="ନିଜ ଜମି ବିକ୍ରି ପାଇଁ ରଖନ୍ତୁ।"></p>
+      <button class="btn green" onclick="propertyAction('sell-land')"><span class="t" data-en="Sell Land" data-hi="जमीन बेचें" data-od="ଜମି ବିକ୍ରି କରନ୍ତୁ"></span></button>
+    </div>
+    <div class="card">
+      <div class="icon">🏘️</div>
+      <h3 class="t" data-en="Rent" data-hi="किराया" data-od="ଭଡା"></h3>
+      <p class="t" data-en="Find houses &amp; property on rent." data-hi="घर और प्रॉपर्टी किराए पर खोजें।" data-od="ଘର ଓ ପ୍ରପର୍ଟି ଭଡାରେ ଖୋଜନ୍ତୁ।"></p>
+      <button class="btn purple" onclick="propertyAction('rent')"><span class="t" data-en="Search Rentals" data-hi="किराए पर खोजें" data-od="ଭଡାରେ ଖୋଜନ୍ତୁ"></span></button>
+    </div>
+    <div class="card">
+      <div class="icon">🏢</div>
+      <h3 class="t" data-en="Apartment" data-hi="अपार्टमेंट" data-od="ଆପାର୍ଟମେଣ୍ଟ"></h3>
+      <p class="t" data-en="Find apartments &amp; flats." data-hi="अपार्टमेंट और फ्लैट खोजें।" data-od="ଆପାର୍ଟମେଣ୍ଟ ଓ ଫ୍ଲାଟ୍ ଖୋଜନ୍ତୁ।"></p>
+      <button class="btn blue" onclick="propertyAction('apartment')"><span class="t" data-en="View Apartments" data-hi="अपार्टमेंट देखें" data-od="ଆପାର୍ଟମେଣ୍ଟ ଦେଖନ୍ତୁ"></span></button>
+    </div>
+  </div>
+</section>
+
+
+<!-- DASHBOARD -->
+<section class="section job-section" id="dashboard" style="display:none;">
+  <h2>🪪 <span class="t" data-en="Your AajSeKaam.in Dashboard" data-hi="आपका AajSeKaam.in डैशबोर्ड" data-od="ଆପଣଙ୍କ AajSeKaam.in ଡ୍ୟାସବୋର୍ଡ"></span></h2>
+
+  <div class="dashboard-box">
+    <div class="membership-code-box">
+      <p class="t" data-en="Your Membership Code" data-hi="आपका Membership Code" data-od="ଆପଣଙ୍କ ସଦସ୍ୟତା କୋଡ୍"></p>
+      <h3 id="dashboardCode"></h3>
+      <button class="btn blue" onclick="copyMembershipCode()">📋 <span class="t" data-en="Copy Code" data-hi="कोड कॉपी करें" data-od="କୋଡ୍ କପି କରନ୍ତୁ"></span></button>
+      <p id="copyFeedback" class="t" style="display:none;" data-en="✅ Copied!" data-hi="✅ कॉपी हो गया!" data-od="✅ କପି ହୋଇଗଲା!"></p>
+    </div>
+
+    <div class="dashboard-info">
+      <p><b class="t" data-en="Name:" data-hi="नाम:" data-od="ନାମ:"></b> <span id="dashboardName"></span></p>
+      <p><b class="t" data-en="Mobile:" data-hi="मोबाइल:" data-od="ମୋବାଇଲ:"></b> <span id="dashboardMobile"></span></p>
+      <p><b class="t" data-en="Role:" data-hi="भूमिका:" data-od="ଭୂମିକା:"></b> <span id="dashboardRole"></span></p>
+    </div>
+
+    <div class="dashboard-purpose">
+      <p class="t" style="font-weight:bold;" data-en="This Membership Code will be used for:" data-hi="यह Membership Code इन कामों में उपयोग होगा:" data-od="ଏହି ସଦସ୍ୟତା କୋଡ୍ ଏଥିପାଇଁ ବ୍ୟବହାର ହେବ:"></p>
+      <ul>
+        <li class="t" data-en="Member verification" data-hi="मेंबर सत्यापन" data-od="ସଦସ୍ୟ ଯାଞ୍ଚ"></li>
+        <li class="t" data-en="Job posting" data-hi="काम पोस्ट करना" data-od="କାମ ପୋଷ୍ଟ କରିବା"></li>
+        <li class="t" data-en="Worker selection" data-hi="कामगार चयन" data-od="ଶ୍ରମିକ ଚୟନ"></li>
+        <li class="t" data-en="Work agreement" data-hi="वर्क एग्रीमेंट" data-od="କାର୍ଯ୍ୟ ଚୁକ୍ତି"></li>
+        <li class="t" data-en="Milestone tracking" data-hi="माइलस्टोन ट्रैकिंग" data-od="ମାଇଲଖୁଣ୍ଟ ଟ୍ରାକିଂ"></li>
+        <li class="t" data-en="Payment records" data-hi="भुगतान रिकॉर्ड" data-od="ପାରିଶ୍ରମିକ ରେକର୍ଡ"></li>
+        <li class="t" data-en="Work history" data-hi="काम का इतिहास" data-od="କାମର ଇତିହାସ"></li>
+        <li class="t" data-en="Complaint records" data-hi="शिकायत रिकॉर्ड" data-od="ଅଭିଯୋଗ ରେକର୍ଡ"></li>
+      </ul>
+    </div>
+
+    <div class="demo-notice t" data-en="⚠️ Demo Version: Data is currently saved in your browser's Local Storage. A secure database/backend will be added in the production version." data-hi="⚠️ Demo Version: अभी data आपके browser की Local Storage में save होता है। Production version में secure database/backend जोड़ा जाएगा।" data-od="⚠️ ଡେମୋ ସଂସ୍କରଣ: ବର୍ତ୍ତମାନ ତଥ୍ୟ ଆପଣଙ୍କ ବ୍ରାଉଜରର Local Storage ରେ ସେଭ୍ ହେଉଛି। ପ୍ରୋଡକ୍ସନ ସଂସ୍କରଣରେ ଏକ ସୁରକ୍ଷିତ ଡାଟାବେସ୍/ବ୍ୟାକଏଣ୍ଡ ଯୋଡାଯିବ।"></div>
+
+    <button class="btn gray" onclick="openLegalModal('membership')">📄 <span class="t" data-en="Membership Rules" data-hi="मेंबरशिप नियम" data-od="ସଦସ୍ୟତା ନିୟମ"></span></button>
+    <button class="btn gray" onclick="openLegalModal('privacy')">🔒 <span class="t" data-en="Privacy Policy" data-hi="प्राइवेसी पॉलिसी" data-od="ଗୋପନୀୟତା ନୀତି"></span></button>
+    <button class="btn red" onclick="cancelMembership()">❌ <span class="t" data-en="Cancel Membership" data-hi="मेंबरशिप रद्द करें" data-od="ସଦସ୍ୟତା ବାତିଲ୍ କରନ୍ତୁ"></span></button>
+  </div>
+</section>
+
+
+<!-- PURPOSE -->
+<section class="section">
+  <div style="max-width:900px;margin:auto;text-align:center;">
+    <h2>🤝 <span class="t" data-en="AajSeKaam.in's Purpose" data-hi="AajSeKaam.in का मकसद" data-od="AajSeKaam.in ର ଲକ୍ଷ୍ୟ"></span></h2>
+    <p style="font-size:18px;" class="t" data-en="Those who have skill get work, and those who have work get the right worker." data-hi="जिसके पास हुनर है उसको काम, और जिसके पास काम है उसको सही कामगार।" data-od="ଯାହାଙ୍କ ପାଖରେ ଦକ୍ଷତା ଅଛି ତାଙ୍କୁ କାମ, ଏବଂ ଯାହାଙ୍କ ପାଖରେ କାମ ଅଛି ତାଙ୍କୁ ଠିକ୍ ଶ୍ରମିକ।"></p>
+    <p style="font-size:18px;" class="t"
+       data-en="💼 Job → 👷 Worker → 📄 Agreement → 🏗️ Work Starts → 📋 Milestones → 💰 Payment → ✅ Work Complete → 🏁 Finish"
+       data-hi="💼 काम → 👷 कामगार → 📄 एग्रीमेंट → 🏗️ काम शुरू → 📋 माइलस्टोन → 💰 भुगतान → ✅ काम पूरा → 🏁 समाप्त"
+       data-od="💼 କାମ → 👷 ଶ୍ରମିକ → 📄 ଚୁକ୍ତି → 🏗️ କାମ ଆରମ୍ଭ → 📋 ମାଇଲଖୁଣ୍ଟ → 💰 ପାରିଶ୍ରମିକ → ✅ କାମ ସମାପ୍ତ → 🏁 ସମାପ୍ତ"></p>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 aajseKaam.in</p>
+  <p class="t" data-en="Job to Finish ❤️" data-hi="काम से Finish तक ❤️" data-od="କାମରୁ Finish ପର୍ଯ୍ୟନ୍ତ ❤️"></p>
+
+  <div class="footer-links">
+    <button onclick="openLegalModal('terms')"><span class="t" data-en="Terms &amp; Conditions" data-hi="नियम व शर्तें" data-od="ସର୍ତ୍ତାବଳୀ"></span></button>
+    <button onclick="openLegalModal('privacy')"><span class="t" data-en="Privacy Policy" data-hi="प्राइवेसी पॉलिसी" data-od="ଗୋପନୀୟତା ନୀତି"></span></button>
+    <button onclick="openLegalModal('membership')"><span class="t" data-en="Membership Rules" data-hi="मेंबरशिप नियम" data-od="ସଦସ୍ୟତା ନିୟମ"></span></button>
+    <button onclick="openLegalModal('jobs')"><span class="t" data-en="Job Rules" data-hi="जॉब नियम" data-od="କାମ ନିୟମ"></span></button>
+    <button onclick="openLegalModal('property')"><span class="t" data-en="Property Rules" data-hi="प्रॉपर्टी नियम" data-od="ପ୍ରପର୍ଟି ନିୟମ"></span></button>
+    <button onclick="openLegalModal('payment')"><span class="t" data-en="Payment / Refund" data-hi="भुगतान / रिफंड" data-od="ପାରିଶ୍ରମିକ / ରିଫଣ୍ଡ"></span></button>
+    <button onclick="openLegalModal('safety')"><span class="t" data-en="Safety" data-hi="सुरक्षा" data-od="ସୁରକ୍ଷା"></span></button>
+    <button onclick="openLegalModal('agreement')"><span class="t" data-en="Work Agreement" data-hi="वर्क एग्रीमेंट" data-od="କାର୍ଯ୍ୟ ଚୁକ୍ତି"></span></button>
+    <button onclick="openLegalModal('dispute')"><span class="t" data-en="Dispute Policy" data-hi="विवाद नीति" data-od="ବିବାଦ ନୀତି"></span></button>
+    <button onclick="openLegalModal('contact')"><span class="t" data-en="Contact Us" data-hi="संपर्क करें" data-od="ଯୋଗାଯୋଗ କରନ୍ତୁ"></span></button>
+  </div>
+</footer>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+
+<script>
+"use strict";
+
+/* ============ GLOBAL STATE ============ */
+
+let selectedRole = "";
+let currentLang = "hi";
+
+function $(id) { return document.getElementById(id); }
+
+/* ============ TRANSLATION DICTIONARIES ============ */
+
+const roleNames = {
+  hi: { worker: "कामगार / मिस्त्री", contractor: "ठेकेदार", builder: "बिल्डर", owner: "घर मालिक" },
+  en: { worker: "Worker / Mistri", contractor: "Contractor", builder: "Builder", owner: "Homeowner" },
+  od: { worker: "ଶ୍ରମିକ / ମିସ୍ତ୍ରୀ", contractor: "ଠିକାଦାର", builder: "ବିଲଡର", owner: "ଘର ମାଲିକ" }
+};
+
+const jobLabels = {
+  hi: { site:"साइट", location:"जगह", workers:"कामगार", wage:"मजदूरी", start:"शुरू", end:"समाप्त", details:"जानकारी", postedBy:"पोस्ट किया", apply:"👷 काम के लिए संपर्क करें", emptyTitle:"अभी कोई काम पोस्ट नहीं हुआ", emptyText:"Contractor, Builder या घर मालिक काम पोस्ट करेगा तो यहां दिखाई देगा।" },
+  en: { site:"Site", location:"Location", workers:"Workers", wage:"Wage", start:"Start", end:"End", details:"Details", postedBy:"Posted by", apply:"👷 Contact for Work", emptyTitle:"No jobs posted yet", emptyText:"When a Contractor, Builder or Homeowner posts a job, it will appear here." },
+  od: { site:"ସାଇଟ୍", location:"ସ୍ଥାନ", workers:"ଶ୍ରମିକ", wage:"ମଜୁରୀ", start:"ଆରମ୍ଭ", end:"ସମାପ୍ତ", details:"ସୂଚନା", postedBy:"ପୋଷ୍ଟ କରିଛନ୍ତି", apply:"👷 କାମ ପାଇଁ ଯୋଗାଯୋଗ କରନ୍ତୁ", emptyTitle:"ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି କାମ ପୋଷ୍ଟ ହୋଇନାହିଁ", emptyText:"ଠିକାଦାର, ବିଲଡର କିମ୍ବା ଘର ମାଲିକ କାମ ପୋଷ୍ଟ କଲେ, ଏଠାରେ ଦେଖାଯିବ।" }
+};
+
+const M = {
+  hi: {
+    langToast:"🌐 भाषा हिन्दी में बदल गई", regNeeded:"पहले Registration / Membership करें।",
+    fillAll:"कृपया सभी जरूरी जानकारी भरें।", jobPosted:"📢 काम सफलतापूर्वक पोस्ट हो गया!",
+    nearby:"📍 आस-पास के काम दिखाए जा रहे हैं।", jobNotFound:"Job नहीं मिली।",
+    interestRecorded:"✅ Job interest दर्ज हो गई!", codeCopied:"📋 Membership Code कॉपी हो गया!",
+    codeMissing:"Membership Code नहीं मिला।", regSuccess:"🎉 Registration सफल हुआ!",
+    cancelConfirm:"क्या आप अपनी Demo Membership cancel करना चाहते हैं?", cancelled:"Membership Demo data हटाया गया।",
+    propertySoon:"जल्द जोड़ा जाएगा।", pickRole:"कृपया अपनी भूमिका चुनें।",
+    nameInvalid:"कृपया अपना सही नाम लिखें।", mobileInvalid:"कृपया 10 अंकों का मोबाइल नंबर डालें।",
+    agreeTerms:"कृपया Terms & Conditions और Privacy Policy से सहमत हों।",
+    keepCodeSafe:"इस Membership Code को सुरक्षित रखें।",
+    membershipLabel:"🪪 मेंबरशिप", registrationLabel:"📝 रजिस्ट्रेशन"
+  },
+  en: {
+    langToast:"🌐 Language changed to English", regNeeded:"Please Register / get Membership first.",
+    fillAll:"Please fill all required details.", jobPosted:"📢 Job posted successfully!",
+    nearby:"📍 Showing nearby jobs.", jobNotFound:"Job not found.",
+    interestRecorded:"✅ Job interest recorded!", codeCopied:"📋 Membership Code copied!",
+    codeMissing:"Membership Code not found.", regSuccess:"🎉 Registration successful!",
+    cancelConfirm:"Are you sure you want to cancel your Demo Membership?", cancelled:"Membership demo data removed.",
+    propertySoon:"Coming soon.", pickRole:"Please select your role.",
+    nameInvalid:"Please enter your correct name.", mobileInvalid:"Please enter a valid 10 digit mobile number.",
+    agreeTerms:"Please agree to the Terms & Conditions and Privacy Policy.",
+    keepCodeSafe:"Keep this Membership Code safe.",
+    membershipLabel:"🪪 Membership", registrationLabel:"📝 Registration"
+  },
+  od: {
+    langToast:"🌐 ଭାଷା ଓଡ଼ିଆକୁ ବଦଳିଗଲା", regNeeded:"ଦୟାକରି ପ୍ରଥମେ ପଞ୍ଜୀକରଣ / ସଦସ୍ୟତା କରନ୍ତୁ।",
+    fillAll:"ଦୟାକରି ସମସ୍ତ ଆବଶ୍ୟକ ସୂଚନା ପୂରଣ କରନ୍ତୁ।", jobPosted:"📢 କାମ ସଫଳତାର ସହିତ ପୋଷ୍ଟ ହେଲା!",
+    nearby:"📍 ନିକଟବର୍ତ୍ତୀ କାମ ଦେଖାଯାଉଛି।", jobNotFound:"କାମ ମିଳିଲା ନାହିଁ।",
+    interestRecorded:"✅ କାମ ପାଇଁ ଆଗ୍ରହ ଦାଖଲ ହେଲା!", codeCopied:"📋 ସଦସ୍ୟତା କୋଡ୍ କପି ହୋଇଗଲା!",
+    codeMissing:"ସଦସ୍ୟତା କୋଡ୍ ମିଳିଲା ନାହିଁ।", regSuccess:"🎉 ପଞ୍ଜୀକରଣ ସଫଳ ହେଲା!",
+    cancelConfirm:"ଆପଣ ନିଶ୍ଚିତ ଆପଣଙ୍କ ଡେମୋ ସଦସ୍ୟତା ବାତିଲ୍ କରିବାକୁ ଚାହୁଁଛନ୍ତି?", cancelled:"ସଦସ୍ୟତା ଡେମୋ ତଥ୍ୟ ହଟାଗଲା।",
+    propertySoon:"ଶୀଘ୍ର ଯୋଡାଯିବ।", pickRole:"ଦୟାକରି ଏକ ଭୂମିକା ବାଛନ୍ତୁ।",
+    nameInvalid:"ଦୟାକରି ଆପଣଙ୍କ ସଠିକ ନାମ ଲେଖନ୍ତୁ।", mobileInvalid:"ଦୟାକରି ସଠିକ 10 ଅଙ୍କର ମୋବାଇଲ ନମ୍ବର ଦିଅନ୍ତୁ।",
+    agreeTerms:"ଦୟାକରି ସର୍ତ୍ତାବଳୀ ଏବଂ ଗୋପନୀୟତା ନୀତି ସହିତ ସହମତ ହୁଅନ୍ତୁ।",
+    keepCodeSafe:"ଏହି ସଦସ୍ୟତା କୋଡ୍ ସୁରକ୍ଷିତ ରଖନ୍ତୁ।",
+    membershipLabel:"🪪 ସଦସ୍ୟତା", registrationLabel:"📝 ପଞ୍ଜୀକରଣ"
+  }
+};
+
+/* ============ TOAST ============ */
+
+function showToast(message) {
+  const toast = $("toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  setTimeout(function () { toast.classList.remove("show"); }, 2500);
+}
+
+/* ============ LANGUAGE SYSTEM ============ */
+
+function changeLanguage(language) {
+
+  currentLang = translations_supported(language) ? language : "hi";
+
+  document.querySelectorAll(".t").forEach(function (el) {
+    const text = el.getAttribute("data-" + currentLang);
+    if (text === null) return;
+    if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+      el.placeholder = text;
+    } else {
+      el.textContent = text;
+    }
+  });
+
+  document.querySelectorAll(".lang-only").forEach(function (el) {
+    el.style.display = (el.getAttribute("data-lang") === currentLang) ? "" : "none";
+  });
+
+  const select = $("langSelect");
+  if (select) select.value = currentLang;
+
+  updateRegNavLabel();
+  renderJobs();
+
+  try { localStorage.setItem("aajseKaamLanguage", currentLang); } catch (e) {}
+
+  showToast(M[currentLang].langToast);
+}
+
+function translations_supported(lang) {
+  return lang === "hi" || lang === "en" || lang === "od";
+}
+
+function updateRegNavLabel() {
+  const navReg = $("registrationNavLink");
+  if (!navReg) return;
+  const span = navReg.querySelector(".t");
+  const member = getMember();
+  if (member) {
+    if (span) span.textContent = M[currentLang].membershipLabel.replace(/^\S+\s/, "");
+  } else {
+    if (span) span.textContent = M[currentLang].registrationLabel.replace(/^\S+\s/, "");
+  }
+}
+
+/* ============ REGISTRATION MODAL ============ */
+
+function openRegistrationModal() {
+  const overlay = $("registrationOverlay");
+  if (!overlay) return;
+  overlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+
+  const successBox = $("regSuccessBox");
+  if (successBox) successBox.style.display = "none";
+
+  const submitBtn = $("regSubmitBtn");
+  if (submitBtn) submitBtn.style.display = "block";
+
+  const error = $("regError");
+  if (error) { error.style.display = "none"; error.textContent = ""; }
+}
+
+function closeRegistrationOverlay() {
+  const overlay = $("registrationOverlay");
+  if (!overlay) return;
+  overlay.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function closeRegistrationModal() {
+  closeRegistrationOverlay();
+  const dashboard = $("dashboard");
+  if (dashboard) dashboard.scrollIntoView({ behavior: "smooth" });
+}
+
+function heroRegistrationAction() {
+  const member = getMember();
+  if (member) {
+    const dash = $("dashboard");
+    if (dash) dash.scrollIntoView({ behavior: "smooth" });
+  } else {
+    openRegistrationModal();
+  }
+}
+
+/* ============ ROLE SELECTION ============ */
+
+function selectRole(role, button) {
+  selectedRole = role;
+  document.querySelectorAll(".role-card").forEach(function (card) { card.classList.remove("selected"); });
+  if (button) button.classList.add("selected");
+  const error = $("regError");
+  if (error) error.style.display = "none";
+}
+
+/* ============ MEMBERSHIP CODE GENERATOR ============ */
+
+function generateMembershipCode(role) {
+  const prefix = { worker: "W", contractor: "C", builder: "B", owner: "H" };
+  const rand = Math.random().toString(36).substring(2, 8).toUpperCase();
+  return "ASK-" + (prefix[role] || "M") + "-" + rand;
+}
+
+/* ============ REGISTRATION ============ */
+
+function submitRegistration() {
+
+  const nameInput = $("regName");
+  const mobileInput = $("regMobile");
+  const terms = $("termsConsent");
+  const error = $("regError");
+  const msgs = M[currentLang];
+
+  if (!nameInput || !mobileInput || !terms) return;
+
+  const name = nameInput.value.trim();
+  const mobile = mobileInput.value.trim();
+
+  function showError(message) {
+    if (error) { error.textContent = message; error.style.display = "block"; }
+  }
+
+  if (!selectedRole) { showError(msgs.pickRole); return; }
+  if (name.length < 2) { showError(msgs.nameInvalid); nameInput.focus(); return; }
+  if (!/^[0-9]{10}$/.test(mobile)) { showError(msgs.mobileInvalid); mobileInput.focus(); return; }
+  if (!terms.checked) { showError(msgs.agreeTerms); return; }
+
+  const membershipCode = generateMembershipCode(selectedRole);
+
+  const member = {
+    name: name,
+    mobile: mobile,
+    role: selectedRole,
+    membershipCode: membershipCode,
+    registeredAt: new Date().toISOString()
+  };
+
+  try { localStorage.setItem("aajseKaamMember", JSON.stringify(member)); } catch (e) {}
+
+  const codeDisplay = $("membershipCodeDisplay");
+  if (codeDisplay) codeDisplay.textContent = membershipCode;
+
+  const successBox = $("regSuccessBox");
+  if (successBox) successBox.style.display = "block";
+
+  const submitBtn = $("regSubmitBtn");
+  if (submitBtn) submitBtn.style.display = "none";
+
+  if (error) error.style.display = "none";
+
+  updateDashboard();
+  showToast(msgs.regSuccess);
+}
+
+/* ============ MEMBER DATA ============ */
+
+function getMember() {
+  try {
+    const data = localStorage.getItem("aajseKaamMember");
+    if (!data) return null;
+    return JSON.parse(data);
+  } catch (e) {
+    return null;
+  }
+}
+
+/* ============ DASHBOARD ============ */
+
+function updateDashboard() {
+  const member = getMember();
+  if (!member) return;
+
+  const dashboard = $("dashboard");
+  const navDashboard = $("dashboardNavLink");
+
+  if (dashboard) dashboard.style.display = "block";
+  if (navDashboard) navDashboard.style.display = "inline-block";
+
+  if ($("dashboardCode")) $("dashboardCode").textContent = member.membershipCode;
+  if ($("dashboardName")) $("dashboardName").textContent = member.name;
+  if ($("dashboardMobile")) $("dashboardMobile").textContent = member.mobile;
+  if ($("dashboardRole")) $("dashboardRole").textContent = (roleNames[currentLang] && roleNames[currentLang][member.role]) || member.role;
+
+  updateRegNavLabel();
+}
+
+/* ============ COPY MEMBERSHIP CODE ============ */
+
+function copyMembershipCode() {
+  const member = getMember();
+  const msgs = M[currentLang];
+
+  if (!member) { showToast(msgs.codeMissing); return; }
+
+  const code = member.membershipCode;
+
+  function showFeedback() {
+    const feedback = $("copyFeedback");
+    if (feedback) {
+      feedback.style.display = "block";
+      setTimeout(function () { feedback.style.display = "none"; }, 2000);
+    }
+    showToast(msgs.codeCopied);
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(showFeedback).catch(function () { showToast("Code: " + code); });
+  } else {
+    showToast("Code: " + code);
+  }
+}
+
+/* ============ CANCEL MEMBERSHIP ============ */
+
+function cancelMembership() {
+  const msgs = M[currentLang];
+  if (!confirm(msgs.cancelConfirm)) return;
+
+  localStorage.removeItem("aajseKaamMember");
+
+  const dashboard = $("dashboard");
+  if (dashboard) dashboard.style.display = "none";
+
+  const navDashboard = $("dashboardNavLink");
+  if (navDashboard) navDashboard.style.display = "none";
+
+  selectedRole = "";
+  updateRegNavLabel();
+  showToast(msgs.cancelled);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ============ LEGAL MODAL ============ */
+
+function openLegalModal(panelName) {
+  const overlay = $("legalOverlay");
+  if (!overlay) return;
+  overlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+  showLegalPanelByName(panelName);
+}
+
+function closeLegalModal() {
+  const overlay = $("legalOverlay");
+  if (!overlay) return;
+  overlay.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function showLegalPanel(panelName, button) {
+  showLegalPanelByName(panelName);
+  document.querySelectorAll(".legal-tab").forEach(function (tab) { tab.classList.remove("active"); });
+  if (button) button.classList.add("active");
+}
+
+function showLegalPanelByName(panelName) {
+  document.querySelectorAll(".legal-panel").forEach(function (panel) { panel.classList.remove("active"); });
+  const target = $("legal-" + panelName);
+  if (target) target.classList.add("active");
+  document.querySelectorAll(".legal-tab").forEach(function (tab) {
+    tab.classList.toggle("active", tab.getAttribute("data-tab") === panelName);
+  });
+}
+
+/* ============ NAVIGATION ============ */
+
+function goToJobs() { const s = $("jobs"); if (s) s.scrollIntoView({ behavior: "smooth" }); }
+function goToWorkers() { const s = $("workers"); if (s) s.scrollIntoView({ behavior: "smooth" }); }
+function goToPostJob() { const s = $("postJob"); if (s) s.scrollIntoView({ behavior: "smooth" }); }
+
+/* ============ JOB POSTING ============ */
+
+function getJobs() {
+  try {
+    const data = localStorage.getItem("aajseKaamJobs");
+    if (!data) return [];
+    return JSON.parse(data);
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveJobs(jobs) {
+  localStorage.setItem("aajseKaamJobs", JSON.stringify(jobs));
+}
+
+function postJob() {
+  const msgs = M[currentLang];
+  const member = getMember();
+
+  if (!member) { showToast(msgs.regNeeded); openRegistrationModal(); return; }
+
+  const siteName = $("siteName").value.trim();
+  const siteLocation = $("siteLocation").value.trim();
+  const workType = $("workType").value.trim();
+  const workerCount = $("workerCount").value.trim();
+  const wage = $("wage").value.trim();
+  const startDate = $("startDate").value;
+  const endDate = $("endDate").value;
+  const workDetails = $("workDetails").value.trim();
+
+  if (!siteName || !siteLocation || !workType || !workerCount || !wage || !startDate) {
+    showToast(msgs.fillAll);
+    return;
+  }
+
+  const job = {
+    id: "JOB-" + Date.now(),
+    siteName: siteName,
+    location: siteLocation,
+    workType: workType,
+    workerCount: workerCount,
+    wage: wage,
+    startDate: startDate,
+    endDate: endDate,
+    details: workDetails,
+    postedBy: member.membershipCode,
+    posterRole: member.role,
+    createdAt: new Date().toISOString()
+  };
+
+  const jobs = getJobs();
+  jobs.unshift(job);
+  saveJobs(jobs);
+  renderJobs();
+
+  $("siteName").value = "";
+  $("siteLocation").value = "";
+  $("workType").value = "";
+  $("workerCount").value = "";
+  $("wage").value = "";
+  $("startDate").value = "";
+  $("endDate").value = "";
+  $("workDetails").value = "";
+
+  showToast(msgs.jobPosted);
+  goToJobs();
+}
+
+/* ============ RENDER JOBS ============ */
+
+function renderJobs(filterSkill, filterLocation) {
+
+  const jobList = $("jobList");
+  if (!jobList) return;
+
+  const L = jobLabels[currentLang];
+  let jobs = getJobs();
+
+  if (filterSkill) {
+    const skill = filterSkill.toLowerCase();
+    jobs = jobs.filter(function (job) {
+      return job.workType.toLowerCase().includes(skill) || (job.details || "").toLowerCase().includes(skill);
+    });
+  }
+
+  if (filterLocation) {
+    const location = filterLocation.toLowerCase();
+    jobs = jobs.filter(function (job) { return job.location.toLowerCase().includes(location); });
+  }
+
+  if (jobs.length === 0) {
+    jobList.innerHTML =
+      '<div class="empty-job">' +
+        '<div class="big-icon">💼</div>' +
+        '<h3>' + escapeHTML(L.emptyTitle) + '</h3>' +
+        '<p>' + escapeHTML(L.emptyText) + '</p>' +
+      '</div>';
+    return;
+  }
+
+  jobList.innerHTML = "";
+
+  jobs.forEach(function (job) {
+    const card = document.createElement("div");
+    card.className = "job-card";
+
+    const roleLabel = (roleNames[currentLang] && roleNames[currentLang][job.posterRole]) || job.posterRole || "";
+
+    card.innerHTML =
+      '<div class="job-card-header">' +
+        '<h3>💼 ' + escapeHTML(job.workType) + '</h3>' +
+        '<span class="job-id">' + escapeHTML(job.id) + '</span>' +
+      '</div>' +
+      '<p>🏠 <b>' + L.site + ':</b> ' + escapeHTML(job.siteName) + '</p>' +
+      '<p>📍 <b>' + L.location + ':</b> ' + escapeHTML(job.location) + '</p>' +
+      '<p>👷 <b>' + L.workers + ':</b> ' + escapeHTML(job.workerCount) + '</p>' +
+      '<p>💰 <b>' + L.wage + ':</b> ' + escapeHTML(job.wage) + '</p>' +
+      '<p>📅 <b>' + L.start + ':</b> ' + escapeHTML(job.startDate) + '</p>' +
+      (job.endDate ? '<p>🏁 <b>' + L.end + ':</b> ' + escapeHTML(job.endDate) + '</p>' : '') +
+      (job.details ? '<p>📝 <b>' + L.details + ':</b> ' + escapeHTML(job.details) + '</p>' : '') +
+      '<div class="job-card-footer">' +
+        '<small>' + L.postedBy + ': ' + escapeHTML(roleLabel) + '</small>' +
+        '<button class="btn blue" onclick="applyForJob(\'' + job.id + '\')">' + L.apply + '</button>' +
+      '</div>';
+
+    jobList.appendChild(card);
+  });
+}
+
+/* ============ SEARCH JOBS ============ */
+
+function searchJobs() {
+  const skill = $("skillSearch") ? $("skillSearch").value.trim() : "";
+  const location = $("locationSearch") ? $("locationSearch").value : "";
+
+  if (location === "Nearby") {
+    renderJobs(skill, "");
+    showToast(M[currentLang].nearby);
+    return;
+  }
+
+  renderJobs(skill, location);
+}
+
+/* ============ APPLY / CONTACT JOB ============ */
+
+function applyForJob(jobId) {
+  const msgs = M[currentLang];
+  const member = getMember();
+
+  if (!member) { showToast(msgs.regNeeded); openRegistrationModal(); return; }
+
+  const jobs = getJobs();
+  const job = jobs.find(function (item) { return item.id === jobId; });
+
+  if (!job) { showToast(msgs.jobNotFound); return; }
+
+  alert("Job ID: " + job.id + "\n\n" + job.workType + "\n\nMembership Code: " + member.membershipCode);
+  showToast(msgs.interestRecorded);
+}
+
+/* ============ PROPERTY ACTION ============ */
+
+function propertyAction(type) {
+  const msgs = M[currentLang];
+  const member = getMember();
+
+  if (!member) { showToast(msgs.regNeeded); openRegistrationModal(); return; }
+
+  showToast(msgs.propertySoon);
+}
+
+/* ============ HTML SECURITY HELPER ============ */
+
+function escapeHTML(value) {
+  if (value === null || value === undefined) return "";
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/* ============ OVERLAY CLICK / ESC ============ */
+
+document.addEventListener("click", function (event) {
+  const registration = $("registrationOverlay");
+  const legal = $("legalOverlay");
+  if (registration && event.target === registration) closeRegistrationOverlay();
+  if (legal && event.target === legal) closeLegalModal();
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") { closeRegistrationOverlay(); closeLegalModal(); }
+});
+
+/* ============ PAGE LOAD ============ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  let savedLanguage = "hi";
+  try {
+    const stored = localStorage.getItem("aajseKaamLanguage");
+    if (stored) savedLanguage = stored;
+  } catch (e) {}
+
+  changeLanguage(savedLanguage);
+  updateDashboard();
+  renderJobs();
+});
+</script>
+
+</body>
+</html>
