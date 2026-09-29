@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#061530">
+<meta name="description" content="aajseKaam.in — a local platform for work opportunities, services, transport and property connections.">
+<meta property="og:title" content="aajseKaam.in | Work, Services, Transport & Property">
+<meta property="og:description" content="A simple local platform connecting workers, customers, service providers, drivers and property users.">
+<meta property="og:type" content="website">
+<title>aajseKaam.in | Work, Services, Transport & Property</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!--
+aajseKaam.in MASTER SECURITY RULE — INCLUDING PRIVATE OFFICE RECORDS:
+This index.html is the presentation layer. It must NEVER be treated as the security boundary.
+Production must enforce authentication, server-side authorization, tenant/role isolation, OTP verification,
+rate limiting, input validation, CSRF protection, audit logs, encrypted transport, encrypted/controlled storage,
+backups, immutable/append-only job history, and server-generated IDs/timestamps.
+No worker, contractor, customer or browser user may edit another user's records from the client.
+-->
+
+<header>
+  <nav class="container">
+    <a href="#home" class="brandWrap" aria-label="aajseKaam.in Home"><span class="brandMark"><span>AK</span></span><span class="brand">aajseKaam.in<small data-i18n="tagline">Work • Property • Services • Transport</small></span></a>
+    <div class="navlinks">
+  <a href="#home" data-i18n="home">Home</a>
+  <a href="#jobs" data-i18n="jobs">Jobs</a>
+  <a href="#choose" data-i18n="workers">Workers</a>
+  <a href="#transport" data-i18n="driverTaxi">Driver/Taxi</a>
+  <a href="#property" data-i18n="property">Property</a>
+  <a href="#workTracking" data-track="nav" onclick="openMyWork();return false">My Work</a>
+</div>
+    <select id="language" class="lang" aria-label="Language" onchange="setLanguage(this.value)">
+      <option value="en">English</option><option value="hi">हिन्दी</option><option value="or">ଓଡ଼ିଆ</option>
+    </select>
+    <button class="primary" data-i18n="registerLogin" onclick="openRegistration()">Register / Login</button>
+    <button class="menuBtn" onclick="toggleMobileNav()" aria-label="Open menu">☰</button>
+  </nav>
+  <div id="mobileNav" class="container mobileNav">
+  <a href="#home" data-i18n="home">Home</a>
+  <a href="#jobs" data-i18n="jobs">Jobs</a>
+  <a href="#choose" data-i18n="workers">Workers</a>
+  <a href="#transport" data-i18n="driverTaxi">Driver/Taxi</a>
+  <a href="#property" data-i18n="property">Property</a>
+  <a href="#workTracking" data-track="nav" onclick="openMyWork();return false">My Work</a>
+</div>
+</header>
+
+<main>
+<section id="home" class="hero heroSlider"><div class="slideBgs"><div class="slideBg active" style="background-image:url('https://images.unsplash.com/photo-1564013799919?auto=format&fit=crop&w=1800&q=80')"></div><div class="slideBg" style="background-image:url('https://images.unsplash.com/photo-1504307651254?auto=format&fit=crop&w=1800&q=80')"></div><div class="slideBg" style="background-image:url('https://images.unsplash.com/photo-1621905252507?auto=format&fit=crop&w=1800&q=80')"></div><div class="slideBg" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=80')"></div></div>
+<div class="container">
+  <div class="slideTexts"><div class="slideTxt active"><span class="badge" data-i18n="s1B"></span><h1 data-i18n="s1T"></h1><p data-i18n="s1P"></p></div><div class="slideTxt"><span class="badge" data-i18n="s2B"></span><h1 data-i18n="s2T"></h1><p data-i18n="s2P"></p></div><div class="slideTxt"><span class="badge" data-i18n="s3B"></span><h1 data-i18n="s3T"></h1><p data-i18n="s3P"></p></div><div class="slideTxt"><span class="badge" data-i18n="s4B"></span><h1 data-i18n="s4T"></h1><p data-i18n="s4P"></p></div></div><div class="sliderCtrl"><button class="sArrow" id="sPrev" aria-label="Previous">&#8249;</button><div class="sDots" id="sDots"></div><button class="sArrow" id="sNext" aria-label="Next">&#8250;</button></div><div class="actions">
+    <button class="btn find" data-i18n="findWork" onclick="location.href='#choose'">👷 Find Work</button>
+    <button class="btn post" data-i18n="givePostWork" onclick="openPostWork()">📋 Give / Post Work</button>
+    <button class="btn light" data-i18n="findProperty" onclick="location.href='#property'">🏠 Find Property</button>
+    <button class="btn outline" data-track="myWork" onclick="openMyWork()">📋 My Work</button>
+  </div>
+  <div class="searchbox">
+    <div class="field"><label data-i18n="searchNeed">What do you need?</label>
+      <select id="searchRole">
+        <option value="workerMistri" data-i18n="optWorkerMistri">Worker / Mistri</option>
+        <option value="contractor" data-i18n="optContractor">Contractor</option>
+        <option value="builder" data-i18n="optBuilder">Builder</option>
+        <option value="driverTaxi" data-i18n="optDriverTaxi">Driver / Taxi</option>
+        <option value="service" data-i18n="optServiceGeneric">Service</option>
+        <option value="property" data-i18n="optPropertyGeneric">Property</option>
+      </select>
+    </div>
+    <div class="field"><label data-i18n="searchLocation">Location</label><input id="searchLocation" data-i18n-placeholder="placeholderLocation" placeholder="Village / Town / City"></div>
+    <div class="field"><label data-i18n="searchRequirement">Requirement</label><input id="searchRequirement" data-i18n-placeholder="placeholderRequirement" placeholder="What work / service is needed?"></div>
+    <div class="field"><label data-i18n="searchDate">Date &amp; Time</label><input id="searchDate" type="datetime-local"></div>
+    <button class="btn find" data-i18n="searchMatch" onclick="doSearch()">🔎 Search &amp; Match</button>
+  </div>
+  <div class="trustBar">
+    <div class="trustItem"><b>EN • हि • ଓ</b><span data-i18n="trustLang">Three Languages</span></div>
+    <div class="trustItem"><b data-i18n="trustDirectB">Direct</b><span data-i18n="trustDirect">Connect Directly</span></div>
+    <div class="trustItem"><b data-i18n="trustContactB">Contact</b><span data-i18n="trustContact">WhatsApp &amp; Call</span></div>
+    <div class="trustItem"><b data-i18n="trustLocalB">Local</b><span data-i18n="trustLocal">Platform</span></div>
+  </div>
+</div>
+</section>
+
+
+<section id="emergencyWork" class="section">
+<div class="container">
+  <div class="emergencyBanner">
+    <h3 data-i18n="emergencyTitle">🚨 Emergency Work — Today</h3>
+    <p class="muted" data-i18n="emergencySub">Urgent work requests marked for today can be shown here.</p>
+    <div id="emergencyList" class="emergencyList"><div class="empty" data-i18n="noEmergency">No emergency work posted yet.</div></div>
+  </div>
+</div>
+</section>
+
+<section id="choose" class="section">
+<div class="container">
+  <h2 data-i18n="chooseHeading">Two simple ways to use aajseKaam.in</h2><p class="muted" data-i18n="chooseSub">Choose the option that matches what you want to do.</p>
+  <div class="two">
+    <div class="rolecard worker"><h2 data-i18n="findWorkCardTitle">👷 I want to find work</h2>
+      <p data-i18n="findWorkCardText">Workers and skilled people can create a profile and search for suitable opportunities.</p>
+      <ul>
+        <li data-i18n="findWorkLi1">Choose your skill</li>
+        <li data-i18n="findWorkLi2">Add your village, town or city</li>
+        <li data-i18n="findWorkLi3">View matching opportunities</li>
+        <li data-i18n="findWorkLi4">Connect before starting</li>
+      </ul>
+      <button class="btn find" data-i18n="findWorkCardBtn" onclick="openRegistration('Worker')">Find Work →</button>
+    </div>
+    <div class="rolecard postwork"><h2 data-i18n="postWorkCardTitle">📋 I want to give / post work</h2>
+      <p data-i18n="postWorkCardText">Customers, homeowners, contractors and builders can post a requirement.</p>
+      <ul>
+        <li data-i18n="postWorkLi1">Describe the work</li>
+        <li data-i18n="postWorkLi2">Select location and date</li>
+        <li data-i18n="postWorkLi3">Find suitable providers</li>
+        <li data-i18n="postWorkLi4">Agree and confirm together</li>
+      </ul>
+      <button class="btn post" data-i18n="postWorkCardBtn" onclick="openPostWork()">Post Work →</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+  <h2 data-i18n="popularHeading">Popular work &amp; services</h2><p class="muted" data-i18n="popularSub">Choose a category to start a work request.</p>
+  <div class="workgrid">
+    <button class="workcard house" onclick="quickCategory('houseWork')"><div class="content"><h3 data-i18n="houseWorkTitle">🏠 House Work</h3><div data-i18n="houseWorkDesc">Construction • Repair • Renovation</div></div></button>
+    <button class="workcard paint" onclick="quickCategory('paintingWork')"><div class="content"><h3 data-i18n="paintingTitle">🎨 Painting Work</h3><div data-i18n="paintingDesc">House • Wall • Interior • Exterior</div></div></button>
+    <button class="workcard electric" onclick="quickCategory('electricalWork')"><div class="content"><h3 data-i18n="electricalTitle">⚡ Electrical Work</h3><div data-i18n="electricalDesc">Wiring • Repair • Installation</div></div></button>
+    <button class="workcard mason" onclick="quickCategory('masonConstruction')"><div class="content"><h3 data-i18n="masonTitle">🧱 Mason / Construction</h3><div data-i18n="masonDesc">Mistri • Labour • Building Work</div></div></button>
+    <button class="workcard driver" onclick="openPostWork('driverTaxi')"><div class="content"><h3 data-i18n="driverCardTitle">🚕 Driver / Taxi</h3><div data-i18n="driverCardDesc">Auto • Taxi • Car • Van</div></div></button>
+    <button class="workcard property" onclick="location.href='#property'"><div class="content"><h3 data-i18n="propertyCardTitle">🏡 Property</h3><div data-i18n="propertyCardDesc">Land • House • Apartment • Commercial</div></div></button>
+  </div>
+</div>
+</section>
+
+
+
+
+
+<section id="jobs" class="section">
+<div class="container">
+  <h2 data-i18n="jobsHeading">Jobs &amp; Work Confirmation</h2><p class="muted" data-i18n="jobsSub">A clear workflow from finding work to completion.</p>
+  <div class="workflow"><span class="step" data-i18n="stepPostJob">Post Job</span><span class="arrow">→</span><span class="step" data-i18n="stepConnection">Connection</span><span class="arrow">→</span><span class="step" data-i18n="stepBothConfirm">Both Confirm</span><span class="arrow">→</span><span class="step" data-i18n="stepCompletion">Completion</span></div>
+  <div class="notice"><b data-i18n="confirmRuleTitle">Confirmation rule:</b> <span data-i18n="confirmRuleText">No response is not treated as confirmation. Final agreement remains between the parties.</span></div>
+  <p class="waNote" data-i18n="waAutomationNote">WhatsApp chat opens your WhatsApp app directly. Automated notifications can be connected through the production communication service.</p>
+  <div id="searchResults" class="resultlist hidden"></div>
+</div>
+</section>
+
+<section id="transport" class="section">
+<div class="container">
+  <h2 data-i18n="transportHeading">🚕 Driver / Taxi / Auto / Rental</h2><p class="muted" data-i18n="transportSub">Create a request by route, date and time. Final booking is agreed directly.</p>
+  <div class="workflow"><span class="step" data-i18n="stepFrom">From</span><span class="arrow">→</span><span class="step" data-i18n="stepTo">To</span><span class="arrow">→</span><span class="step" data-i18n="stepDateTime">Date &amp; Time</span><span class="arrow">→</span><span class="step" data-i18n="stepBooking">Booking</span></div>
+  <div class="actions"><button class="btn find" data-i18n="registerAsDriverBtn" onclick="openRegistration('Driver')">Register as Driver</button><button class="btn post" data-i18n="bookRideBtn" onclick="openPostWork('driverTaxi')">Book a Ride</button></div>
+</div>
+</section>
+
+<section id="property" class="section">
+<div class="container">
+  <h2 data-i18n="propertyHeading">🏠 Property</h2><p class="muted" data-i18n="propertySub">Create a property-related request for land, house, apartment or commercial space.</p>
+  <div class="cards">
+    <div class="card"><h3 data-i18n="landTitle">🌳 Land</h3><p data-i18n="buySellRent">Buy • Sell • Rent</p><button class="btn light" data-i18n="createRequestBtn" onclick="openPostWork('property')">Create Request</button></div>
+    <div class="card"><h3 data-i18n="houseTitle2">🏠 House</h3><p data-i18n="buySellRent">Buy • Sell • Rent</p><button class="btn light" data-i18n="createRequestBtn" onclick="openPostWork('property')">Create Request</button></div>
+    <div class="card"><h3 data-i18n="apartmentTitle">🏢 Apartment</h3><p data-i18n="buySellRent">Buy • Sell • Rent</p><button class="btn light" data-i18n="createRequestBtn" onclick="openPostWork('property')">Create Request</button></div>
+    <div class="card"><h3 data-i18n="commercialTitle">🏬 Commercial</h3><p data-i18n="buySellRent">Buy • Sell • Rent</p><button class="btn light" data-i18n="createRequestBtn" onclick="openPostWork('property')">Create Request</button></div>
+  </div>
+</div>
+</section>
+
+<section id="workTracking" class="section hidden">
+<div class="container">
+<div class="sectionHead"><div><h2 data-track="heading">🛠️ Daily Work Tracking & Confirmation</h2><p class="muted" data-track="sub">Start work, send progress, record problems, complete the day and keep a date-wise confirmation history.</p></div><button class="btn light noPrint" onclick="closeMyWork()">✕ Close</button></div>
+<div class="trackGrid">
+<div class="trackCard">
+<h3 data-track="workerTitle">👷 Worker / Service Update</h3>
+<p class="smallNote" data-track="workerSub">The worker can record the starting photo, work details, completion photo and problems for each working day.</p>
+<div class="formgrid">
+<div class="field"><label data-track="workId">Work ID</label><input id="trackWorkId" placeholder="JOB-..." maxlength="60"></div>
+<div class="field"><label data-track="ownerMobile">Owner / Contractor Mobile</label><input id="trackOwnerMobile" inputmode="numeric" maxlength="10" placeholder="10-digit mobile"></div>
+<div class="field"><label data-track="workDate">Work Date</label><input id="trackDate" type="date"></div>
+<div class="field"><label data-track="workStatus">Update Type</label><select id="trackStatus"><option value="started">▶️ Start Work</option><option value="progress">📸 Daily Progress</option><option value="completed">✅ Complete Work</option><option value="problem">⚠️ Report Problem</option></select></div>
+<div class="field full"><label data-track="workPhoto">Work Photo</label><input id="trackPhoto" type="file" accept="image/*"><img id="trackPhotoPreview" class="photoPreview" alt="Work photo preview"></div>
+<div class="field full"><label data-track="workDetails">Work Details</label><textarea id="trackDetails" rows="3" maxlength="1000" placeholder="What work was started / completed today?"></textarea></div>
+<div class="field full"><label data-track="problem">Problem / Delay / Material Need</label><textarea id="trackProblem" rows="2" maxlength="600" placeholder="Write any problem, delay or material requirement"></textarea></div>
+</div>
+<div class="trackActions"><button class="btn find" onclick="saveWorkUpdate()" data-track="saveUpdate">Save Work Update</button><button class="btn light" onclick="shareWorkUpdate()" data-track="sendUpdate">💬 Send to Owner / Contractor</button></div>
+<div class="notice" data-track="confirmationRule">A response is not treated as confirmation unless the recipient actively confirms it.</div>
+</div>
+<div class="trackCard">
+<h3 data-track="historyTitle">📅 Date-wise Attendance & Confirmation</h3>
+<p class="smallNote" data-track="historySub">Each update keeps its date, time, sender and confirmation status. Pending means not confirmed.</p>
+<div id="workHistory" class="updateList"><div class="empty" data-track="emptyHistory">No work updates yet.</div></div>
+<div class="confirmBox"><b data-track="confirmTitle">Owner / Contractor Confirmation</b><p class="smallNote" data-track="confirmSub">Use the Work ID and date from the message to confirm receipt and work status.</p><div class="formgrid"><div class="field"><label data-track="confirmId">Work ID</label><input id="confirmWorkId"></div><div class="field"><label data-track="confirmDate">Date</label><input id="confirmDate" type="date"></div></div><div class="trackActions"><button class="btn find" onclick="confirmWorkUpdate()" data-track="confirmBtn">✅ Confirm Received / Work</button><button class="btn light" onclick="reportWorkProblem()" data-track="problemBtn">⚠️ Report Problem</button></div></div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+<section id="officeOperations" class="section officeOnly" aria-hidden="true">
+<div class="container officeGate">
+  <div id="officeLoginPanel" class="officePanel">
+    <span class="badge">🔐 Authorized Office Access</span>
+    <h2>Office Daily Operations &amp; Closing</h2>
+    <p>Private operational records are not part of the public marketplace. Access requires an authorized mobile number and OTP.</p>
+    <div class="officeSecurity">
+      <span class="securityPill">OTP Verification</span>
+      <span class="securityPill">Role Permission</span>
+      <span class="securityPill">Audit Log</span>
+      <span class="securityPill">Daily Lock</span>
+    </div>
+    <div class="officeLoginNote">
+      <b>Production security:</b> OTP must be generated and verified by the secure backend/SMS provider. This HTML file is only the presentation layer and must never be the security boundary.
+    </div>
+    <div class="formgrid" style="margin-top:18px">
+      <div class="field"><label style="color:#fff">Authorized Mobile</label><input id="officeMobile" inputmode="numeric" maxlength="10" placeholder="10-digit authorized mobile"></div>
+      <div class="field"><label style="color:#fff">Office Role</label><select id="officeRole"><option value="office">Office Staff</option><option value="manager">Manager</option><option value="admin">Admin</option><option value="auditor">Auditor</option></select></div>
+      <div class="full actions"><button class="btn find" type="button" onclick="requestOfficeOTP()">Send OTP</button></div>
+      <div id="officeOtpArea" class="full hidden">
+        <div class="otpGrid">
+          <div class="field"><label style="color:#fff">Enter OTP</label><input id="officeOTP" class="otpInput" inputmode="numeric" maxlength="6" placeholder="••••••"></div>
+          <div class="field"><label style="color:#fff">OTP status</label><div id="officeOtpStatus" style="padding:12px;color:#dcecff">OTP not requested.</div></div>
+        </div>
+        <div class="actions"><button class="btn find" type="button" onclick="verifyOfficeOTP()">Verify &amp; Open Office</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="officeWorkspace" class="hidden">
+    <div class="officePanel">
+      <div class="sectionHead">
+        <div><span class="badge">🔒 AUTHORIZED SESSION</span><h2>Office Daily Operations &amp; Closing</h2><p>Authorized office operations, work records, payments, pending items and end-of-day closing.</p></div>
+        <button class="btn light" onclick="officeLogout()">Logout</button>
+      </div>
+      <div class="officeKpis">
+        <div class="officeKpi"><b id="officeOpenCount">0</b><span>Open Today</span></div>
+        <div class="officeKpi"><b id="officeCompleteCount">0</b><span>Completed</span></div>
+        <div class="officeKpi"><b id="officePendingCount">0</b><span>Pending</span></div>
+        <div class="officeKpi"><b id="officeLockedCount">0</b><span>Locked Days</span></div>
+      </div>
+    </div>
+
+    <div class="officeRecord">
+      <div class="sectionHead"><div><h3 data-i18n="dashboardHeading">📊 Marketplace Dashboard</h3><p class="muted" data-i18n="dashboardSub">Live operational counts available to authorized staff.</p></div><button class="btn light noPrint" data-i18n="refreshBtn" onclick="refreshDashboard()">↻ Refresh</button></div>
+      <div class="dashwrap">
+        <div class="kpicard"><div class="kpi" id="memberCount">0</div><div class="muted" data-i18n="kpiMembers">Registered Profiles</div></div>
+        <div class="kpicard"><div class="kpi" id="jobCount">0</div><div class="muted" data-i18n="kpiJobs">Posted Requests</div></div>
+        <div class="kpicard"><div class="kpi" id="driverCount">0</div><div class="muted" data-i18n="kpiDrivers">Driver Profiles</div></div>
+        <div class="kpicard"><div class="kpi" id="propertyCount">0</div><div class="muted" data-i18n="kpiProperty">Property Requests</div></div>
+      </div>
+      <div class="tablewrap"><table><thead><tr><th data-i18n="tableReqProfile">Request / Profile</th><th data-i18n="tableLocation">Location</th><th data-i18n="tableType">Type</th><th data-i18n="tableStatus">Status</th></tr></thead><tbody id="dashboardBody"><tr><td colspan="4" class="empty" data-i18n="emptyTable">No local records yet.</td></tr></tbody></table></div>
+      <div class="actions noPrint"><button class="btn light" data-i18n="printBtn" onclick="printDashboard()">🖨️ Print Dashboard</button><button class="btn light" data-i18n="saveRecordsBtn" onclick="exportRecords()">💾 Save Records</button><button class="btn light" data-i18n="clearBtn" onclick="clearLocalRecords()">Clear Local Records</button></div>
+      <p class="smallNote" data-i18n="privacyNote">Operational data should be stored in the secure production database with server-side access controls.</p>
+    </div>
+
+    <div class="officeRecord">
+      <h3>📅 Today — Office Operations Record</h3>
+      <div class="lockNote">Each date has one controlled daily record. After closing, normal editing/deleting is disabled. Corrections must go through authorized approval and an audit log.</div>
+      <form id="officeWorkForm" class="formgrid" onsubmit="saveOfficeWork(event)" novalidate>
+        <div class="field"><label>Work Date</label><input id="officeDate" type="date" required></div>
+        <div class="field"><label>District</label><input id="officeDistrict" required></div>
+        <div class="field"><label>Block</label><input id="officeBlock" required></div>
+        <div class="field"><label>Work Status</label><select id="officeWorkStatus"><option value="new">New Work</option><option value="continuing">Continuing Work</option><option value="completed">Completed Work</option><option value="pending">Pending Work</option></select></div>
+        <div class="field full"><label>Exact Work / Service Name</label><input id="officeWorkName" maxlength="160" required placeholder="Exact work or service name"></div>
+        <div class="field"><label>Workers</label><input id="officeWorkers" type="number" min="0" value="0"></div>
+        <div class="field"><label>Mistri</label><input id="officeMistri" type="number" min="0" value="0"></div>
+        <div class="field"><label>Payment / Receipt</label><input id="officePayment" type="number" min="0" step="0.01" value="0"></div>
+        <div class="field"><label>Milestone / Reference</label><input id="officeReference" maxlength="100"></div>
+        <div class="field full"><label>Daily Note / Problem</label><textarea id="officeNote" rows="3" maxlength="800"></textarea></div>
+        <div class="full actions"><button class="btn find" type="submit">Save Daily Entry</button><button class="btn light" type="button" onclick="renderOfficeRecords()">Refresh</button></div>
+      </form>
+    </div>
+
+    <div class="officeRecord">
+      <div class="sectionHead"><div><h3>📚 Office Daily Records</h3><p class="muted">Open records can be updated. Closed records are preserved as locked records.</p></div><button class="btn light" onclick="printOfficeRecords()">🖨️ Print</button></div>
+      <div id="officeRecordsList"></div>
+    </div>
+
+    <div class="officeRecord">
+      <h3>🔒 End-of-Day Operations Closing</h3>
+      <p class="muted">Closing creates the official daily snapshot. Once closed, normal users cannot edit or delete that date.</p>
+      <div class="actions">
+        <button class="btn post" onclick="closeOfficeDay()">🔒 Close Today &amp; Lock Record</button>
+        <button class="btn light" onclick="requestOfficeCorrection()">Request Authorized Correction</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+
+<footer>
+<div class="container">
+  <div class="footergrid">
+    <div><div class="brandWrap"><span class="brandMark"><span>AK</span></span><div class="brand" style="color:#fff">aajseKaam.in</div></div><p class="footerText" data-i18n="footerTagline">A simple local marketplace for work, workers, services, transport and property.</p>
+      <div class="actions"><button class="btn light" data-i18n="savePageBtn" onclick="saveSite()">💾 Save Page</button><button class="btn light" data-i18n="printBtnFooter" onclick="printSite()">🖨️ Print</button><button class="btn light" data-i18n="shareBtn" onclick="shareSite()">🔗 Share</button></div>
+    </div>
+    <div><h3 data-i18n="exploreHeading">Explore</h3><a href="#home" data-i18n="home">Home</a><a href="#jobs" data-i18n="jobs">Jobs</a><a href="#choose" data-i18n="workers">Workers</a><a href="#transport" data-i18n="driverTaxi">Driver/Taxi</a><a href="#property" data-i18n="property">Property</a><a href="#workTracking" data-track="nav" onclick="openMyWork();return false">My Work</a></div>
+    <div><h3 data-i18n="companyHeading">Company</h3><a href="#" onclick="showInfo('aboutUs');return false" data-i18n="aboutUs">About Us</a><a href="#" onclick="showInfo('contact');return false" data-i18n="contact">Contact</a><a href="#" onclick="showInfo('help');return false" data-i18n="help">Help / Support</a><a href="#" onclick="openOfficeAccess();return false">🔒 Authorized Staff Login</a></div>
+    <div><h3 data-i18n="legalHeading">Legal</h3><a href="#" onclick="showInfo('terms');return false" data-i18n="terms">Terms of Use</a><a href="#" onclick="showInfo('privacy');return false" data-i18n="privacy">Privacy Policy</a><a href="#" onclick="showInfo('refund');return false" data-i18n="refund">Refund Policy</a></div>
+  </div>
+  <div class="footbottom"><div>© <span id="year"></span> aajseKaam.in — <span data-i18n="rightsReserved">All rights reserved.</span></div><div class="footicons"><button onclick="showInfo('facebook')" aria-label="Facebook">f</button><button onclick="showInfo('instagram')" aria-label="Instagram">◎</button><button onclick="showInfo('whatsapp')" aria-label="WhatsApp">✆</button><button onclick="showInfo('youtube')" aria-label="YouTube">▶️</button></div></div>
+</div>
+</footer>
+
+<div class="modal" id="registrationModal"><div class="modalbox">
+<button class="close" onclick="closeModal('registrationModal')">✕ <span data-i18n="closeBtn">Close</span></button>
+<h2 data-i18n="regModalTitle">Register / Create Profile</h2><p class="muted" data-i18n="regModalSub">Create your profile for work, services, transport or property.</p>
+<div class="plan">
+<label><input type="radio" name="role" value="Worker" checked onchange="renderRoleFields()"> <span data-i18n="roleWorkerLabel">Worker / Mistri</span></label>
+<label><input type="radio" name="role" value="Contractor" onchange="renderRoleFields()"> <span data-i18n="roleContractorLabel">Contractor / Builder</span></label>
+<label><input type="radio" name="role" value="Customer" onchange="renderRoleFields()"> <span data-i18n="roleCustomerLabel">Customer / Homeowner</span></label>
+<label><input type="radio" name="role" value="Driver" onchange="renderRoleFields()"> <span data-i18n="roleDriverLabel">Driver / Taxi</span></label>
+<label><input type="radio" name="role" value="Property" onchange="renderRoleFields()"> <span data-i18n="rolePropertyLabel">Property Owner</span></label>
+<label><input type="radio" name="role" value="OtherService" onchange="renderRoleFields()"> <span data-i18n="roleServiceLabel">Other Work / Service</span></label>
+</div>
+<form id="registrationForm" class="formgrid" style="margin-top:16px" onsubmit="submitRegistration(event)" novalidate>
+<div class="field" id="regNameField"><label data-i18n="fullNameLabel">Full Name</label><input id="regName" required maxlength="80" data-i18n-placeholder="placeholderName" placeholder="Your name"><div class="fielderr" data-i18n="errName">Please enter your full name.</div></div>
+<div class="field" id="regMobileField"><label data-i18n="mobileLabel">Mobile Number</label><input id="regMobile" required inputmode="numeric" maxlength="10" data-i18n-placeholder="placeholderMobile" placeholder="10-digit mobile number"><div class="fielderr" data-i18n="errMobile">Please enter a valid 10-digit mobile number.</div></div>
+<div class="field"><label data-i18n="photoLabel">Pass Photo</label><input id="regPhoto" type="file" accept="image/*"><img id="regPhotoPreview" class="photoPreview" alt="Profile preview"></div>
+<div class="field" id="regLocationField"><label data-i18n="locationLabel2">Village / Town / City</label><input id="regLocation" required maxlength="120" data-i18n-placeholder="placeholderLocation2" placeholder="Your location"><div class="fielderr" data-i18n="errLocation">Please enter your location.</div></div>
+<div class="field"><label data-i18n="liveLocationLabel">Live Location</label><button type="button" class="liveBtn" onclick="captureLiveLocation()">📍 <span data-i18n="getLiveLocation">Use Current Location</span></button><div id="locationStatus" class="locationStatus"></div><input type="hidden" id="regLat"><input type="hidden" id="regLng"></div>
+<div id="roleFields" class="roleFields"></div>
+<div class="full notice feeNotice" id="regFeeBox"></div>
+<div class="full notice" data-i18n="regNotice">A membership profile is created after registration. Production identity verification and secure document handling must be enforced by the backend.</div>
+<div class="full actions"><button type="submit" class="btn find" id="regSubmitBtn" data-i18n="createProfileBtn">Create Profile</button><button type="button" class="btn light" data-i18n="cancelBtn" onclick="closeModal('registrationModal')">Cancel</button></div>
+<div id="registrationResultActions" class="full actions hidden"><button type="button" class="btn find" data-i18n="printMembershipBtn" onclick="printRegistration()">🖨️ Print Membership</button><button type="button" class="btn light" data-i18n="shareMembershipBtn" onclick="shareRegistration()">🔗 Share Membership</button><button type="button" class="btn light" data-i18n="saveMembershipBtn" onclick="saveRegistration()">💾 Save Membership</button></div>
+</form></div></div>
+
+<div class="modal" id="postWorkModal"><div class="modalbox">
+<button class="close" onclick="closeModal('postWorkModal')">✕ <span data-i18n="closeBtn">Close</span></button><h2 data-i18n="postModalTitle">Post Work / Request</h2><p class="muted" data-i18n="postModalSub">Create a work or service request and connect directly with the relevant person.</p>
+<form id="postWorkForm" class="formgrid" onsubmit="submitPostWork(event)" novalidate>
+<div class="field"><label data-i18n="workTypeLabel">Work / Request Type</label>
+  <select id="postWorkType">
+    <option value="houseWork" data-i18n="optHouseWork">House Work</option>
+    <option value="paintingWork" data-i18n="optPaintingWork">Painting Work</option>
+    <option value="electricalWork" data-i18n="optElectricalWork">Electrical Work</option>
+    <option value="masonConstruction" data-i18n="optMasonConstruction">Mason / Construction</option>
+    <option value="driverTaxi" data-i18n="optDriverTaxi">Driver / Taxi</option>
+    <option value="property" data-i18n="optPropertyGeneric">Property</option>
+    <option value="otherService" data-i18n="optOtherService">Other Service</option>
+  </select>
+</div>
+<div class="field"><label data-i18n="districtLabel">District</label><input id="postDistrict" maxlength="60" data-i18n-placeholder="districtPlaceholder" placeholder="District" required></div>
+<div class="field"><label data-i18n="blockLabel">Block</label><input id="postBlock" maxlength="60" data-i18n-placeholder="blockPlaceholder" placeholder="Block" required></div>
+<div class="field full exactWorkField" id="exactWorkField"><label data-i18n="exactWorkLabel">Exact Work / Service Name</label><input id="exactWorkName" maxlength="120" data-i18n-placeholder="exactWorkPlaceholder" placeholder="e.g. 2BHK House Painting, 5 HP Motor Repair"></div>
+<div class="field"><label data-i18n="urgencyLabel">Urgency</label><select id="postUrgency"><option value="normal" data-i18n="urgencyNormal">Normal</option><option value="today" data-i18n="urgencyToday">🚨 Emergency — Complete Today</option></select></div>
+<div class="field" id="postLocationField"><label data-i18n="locationLabel3">Location</label><input id="postWorkLocation" required maxlength="100" data-i18n-placeholder="placeholderLocation" placeholder="Village / Town / City"><div class="fielderr" data-i18n="errLocation">Please enter your location.</div></div>
+<div class="field" id="postDateField"><label data-i18n="dateNeededLabel">Date &amp; Time Needed</label><input id="postWorkDate" type="datetime-local" required><div class="fielderr" data-i18n="errDate">Please choose a date and time.</div></div>
+<div class="field" id="postMobileField"><label data-i18n="contactLabel">Contact Number</label><input id="postWorkMobile" required inputmode="numeric" maxlength="10" data-i18n-placeholder="placeholderMobile" placeholder="10-digit mobile number"><div class="fielderr" data-i18n="errMobile">Please enter a valid 10-digit mobile number.</div></div>
+<div class="field full" id="postDescField"><label data-i18n="descriptionLabel">Work Description</label><textarea id="postWorkDescription" rows="3" required maxlength="800" data-i18n-placeholder="placeholderDescription" placeholder="Describe the work or request"></textarea><div class="fielderr" data-i18n="errDescription">Please describe the work or request.</div></div>
+<div class="field full"><label data-i18n="presentPhotoLabel">Present Photo (optional)</label><input id="postWorkPhoto" type="file" accept="image/*"><img id="postWorkPhotoPreview" class="photoPreview" alt="Work photo preview"></div>
+<div class="full notice" data-i18n="postNotice">Final pricing, identity verification, payment and agreement must be confirmed directly by the parties.</div>
+<div class="full actions"><button type="submit" class="btn post" id="postSubmitBtn" data-i18n="saveRequestBtn2">Save Request</button><button type="button" class="btn light" data-i18n="cancelBtn" onclick="closeModal('postWorkModal')">Cancel</button></div>
+</form></div></div>
+
+<div class="modal" id="membershipModal"><div class="modalbox" id="membershipCardBox">
+<button class="close" onclick="closeModal('membershipModal')">✕ <span data-i18n="closeBtn">Close</span></button>
+<div id="membershipCard" style="border:2px solid var(--navy);border-radius:18px;padding:24px;margin-top:12px">
+<div style="text-align:center"><div class="brand">aajseKaam.in</div><h2 data-i18n="membershipCardTitle">Membership Card</h2><p class="muted" data-i18n="membershipCardSub">Local profile membership record</p></div>
+<div class="two" style="margin-top:18px"><div><b data-i18n="memberIdLabel">Membership ID</b><div id="cardMemberId"></div></div><div><b data-i18n="memberRoleLabel">Role</b><div id="cardMemberRole"></div></div><div><b data-i18n="memberNameLabel">Name</b><div id="cardMemberName"></div></div><div><b data-i18n="memberMobileLabel">Mobile</b><div id="cardMemberMobile"></div></div><div><b data-i18n="memberLocationLabel">Location</b><div id="cardMemberLocation"></div></div><div><b data-i18n="memberSkillLabel">Skill / Work</b><div id="cardMemberSkill"></div></div><div><b data-i18n="memberExperienceLabel">Experience</b><div id="cardMemberExperience"></div></div><div><b data-i18n="memberCertificateLabel">Character Certificate</b><div id="cardMemberCertificate"></div></div></div>
+<p class="smallNote" style="margin-top:18px" data-i18n="membershipDemoNote">Membership information is subject to the platform's identity-verification and security controls.</p>
+</div>
+<div class="actions noPrint"><button class="btn find" data-i18n="printMembershipBtn" onclick="printRegistration()">🖨️ Print Membership</button><button class="btn light" data-i18n="shareMembershipBtn" onclick="shareRegistration()">🔗 Share Membership</button><button class="btn light" data-i18n="saveMembershipBtn" onclick="saveRegistration()">💾 Save Membership</button></div>
+</div></div>
+
+<div class="modal" id="infoModal"><div class="modalbox"><button class="close" onclick="closeModal('infoModal')">✕ <span data-i18n="closeBtn">Close</span></button><h2 id="infoTitle">Information</h2><p id="infoText" class="muted"></p></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<button class="waFloat" id="waFloatBtn" onclick="openSupportWhatsApp()" aria-label="WhatsApp">💬</button>
+
+<script src="js/language.js"></script>
+<script src="js/app.js"></script>
+<script src="js/registration.js"></script>
+<script src="js/office.js"></script>
+<script src="js/work.js"></script> 
+
+
+
+
+</body>
+</html>
