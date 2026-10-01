@@ -84,7 +84,28 @@ function renderRoleFields(){
 function captureLiveLocation(){
  if(!navigator.geolocation){toast(currentLang==='hi'?'यह डिवाइस लाइव लोकेशन सपोर्ट नहीं करता।':currentLang==='or'?'ଏହି ଡିଭାଇସ୍ ଲାଇଭ୍ ଲୋକେସନ୍ ସମର୍ଥନ କରେନାହିଁ।':'Live location is not supported on this device.',true);return}
  const status=$("locationStatus");status.textContent=currentLang==='hi'?'लोकेशन ली जा रही है…':currentLang==='or'?'ଲୋକେସନ୍ ନିଆଯାଉଛି…':'Getting location…';
- navigator.geolocation.getCurrentPosition(pos=>{const lat=pos.coords.latitude.toFixed(6),lng=pos.coords.longitude.toFixed(6);$("regLat").value=lat;$("regLng").value=lng;status.textContent=`✓ ${lat}, ${lng}`; if(!$('regLocation').value.trim())$('regLocation').value=`${lat}, ${lng}`;},()=>{status.textContent=currentLang==='hi'?'लोकेशन की अनुमति नहीं मिली।':currentLang==='or'?'ଲୋକେସନ୍ ଅନୁମତି ମିଳିଲା ନାହିଁ।':'Location permission was not granted.'},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+ navigator.geolocation.getCurrentPosition(pos=>{const lat=pos.coords.latitude.toFixed(6),lng=pos.coords.longitude.toFixed(6);$("regLat").value=lat;$("regLng").value=lng;getPlaceName(lat,lng,'regLocation','locationStatus');status.textContent=`✓ ${lat}, ${lng}`; if(!$('regLocation').value.trim())$('regLocation').value=`${lat}, ${lng}`;},()=>{status.textContent=currentLang==='hi'?'लोकेशन की अनुमति नहीं मिली।':currentLang==='or'?'ଲୋକେସନ୍ ଅନୁମତି ମିଳିଲା ନାହିଁ।':'Location permission was not granted.'},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+}
+function capturePostLocation(){
+ if(!navigator.geolocation){toast('Live location is not supported on this device.',true);return}
+ const s=$("postLocStatus");s.textContent='Getting location…';
+ navigator.geolocation.getCurrentPosition(p=>{
+  const lat=p.coords.latitude.toFixed(6),lng=p.coords.longitude.toFixed(6);
+  $("postLat").value=lat;$("postLng").value=lng;s.textContent='✓ '+lat+', '+lng;
+  getPlaceName(lat,lng,'postWorkLocation','postLocStatus');
+  if(!$("postWorkLocation").value.trim())$("postWorkLocation").value=lat+', '+lng;
+ },()=>{s.textContent='Location permission was not granted.'},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+}
+async function getPlaceName(lat,lng,inputId,statusId){
+ try{
+  const r=await fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=14&addressdetails=1&accept-language=en&lat='+lat+'&lon='+lng);
+  const d=await r.json();const a=d.address||{};
+  const name=[a.village||a.town||a.city||a.hamlet||a.suburb,a.state_district||a.county,a.state].filter(Boolean).join(', ');
+  if(!name)return;
+  $(statusId).textContent='✓ '+name+' ('+lat+', '+lng+')';
+  const inp=$(inputId);
+  if(inp&&(!inp.value.trim()||/^-?\d+\.\d+,\s*-?\d+\.\d+$/.test(inp.value.trim())))inp.value=name;
+ }catch(e){}
 }
 function previewImage(input,previewId){const f=input?.files?.[0],img=$(previewId);if(!img)return;if(!f){img.classList.remove('show');return}const u=URL.createObjectURL(f);img.src=u;img.classList.add('show');img.onload=()=>URL.revokeObjectURL(u)}
 function readFileNames(id){const el=$(id);return el?.files?Array.from(el.files).map(f=>f.name):[]}

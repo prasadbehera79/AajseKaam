@@ -16,7 +16,7 @@ function submitPostWork(e){
   if(!valid){toast(t("errDescription"),true);return}
   const submitBtn=$("postSubmitBtn");submitBtn.disabled=true;
   const jobs=read(STORAGE.jobs);
-  const job={id:makeId("JOB"),photoName:($("postWorkPhoto")?.files?.[0]?.name)||"",type,exactWorkName:exact||typeLabel(type),location:loc,district,block,date,mobile,description,urgency,status:"Open",createdAt:new Date().toISOString()};
+  const job={id:makeId("JOB"),photoName:($("postWorkPhoto")?.files?.[0]?.name)||"",type,exactWorkName:exact||typeLabel(type),location:loc,district,block,date,mobile,description,urgency,status:"Open",lat:$("postLat")?.value||"",lng:$("postLng")?.value||"",createdAt:new Date().toISOString()};
   jobs.unshift(job);write(STORAGE.jobs,jobs);
   e.target.reset();$("postWorkPhotoPreview")?.classList.remove("show");clearFormErrors("postWorkForm");toggleExactWorkField();closeModal("postWorkModal");
   refreshDashboard();renderEmergencyJobs();addResult(typeLabel(job.type),job.location,job.description);
