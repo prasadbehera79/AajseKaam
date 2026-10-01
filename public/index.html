@@ -327,6 +327,40 @@ No worker, contractor, customer or browser user may edit another user's records 
 <div class="field" id="regLocationField"><label data-i18n="locationLabel2">Village / Town / City</label><input id="regLocation" required maxlength="120" data-i18n-placeholder="placeholderLocation2" placeholder="Your location"><div class="fielderr" data-i18n="errLocation">Please enter your location.</div></div>
 <div class="field"><label data-i18n="liveLocationLabel">Live Location</label><button type="button" class="liveBtn" onclick="captureLiveLocation()">📍 <span data-i18n="getLiveLocation">Use Current Location</span></button><div id="locationStatus" class="locationStatus"></div><input type="hidden" id="regLat"><input type="hidden" id="regLng"></div>
 <div id="roleFields" class="roleFields"></div>
+<div class="field">
+  <label for="regAddress">Full Address</label>
+  <textarea
+    id="regAddress"
+    name="address"
+    rows="3"
+    placeholder="House / Street / Village / Town / District / State / PIN"
+  ></textarea>
+</div>
+
+<div class="field">
+  <label for="regIdProofType">ID Proof Type</label>
+  <select id="regIdProofType" name="idProofType">
+    <option value="">Select ID Proof</option>
+    <option value="Aadhaar">Aadhaar</option>
+    <option value="Voter ID">Voter ID</option>
+    <option value="Driving Licence">Driving Licence</option>
+    <option value="PAN Card">PAN Card</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
+<div class="field">
+  <label for="regIdProofLast4">ID Proof Last 4 Digits</label>
+  <input
+    type="text"
+    id="regIdProofLast4"
+    name="idProofLast4"
+    maxlength="4"
+    inputmode="numeric"
+    placeholder="Last 4 digits only"
+  />
+  <small>Private verification information. Do not enter the full ID number.</small>
+</div>
 <div class="full notice feeNotice" id="regFeeBox"></div>
 <div class="full notice" data-i18n="regNotice">A membership profile is created after registration. Production identity verification and secure document handling must be enforced by the backend.</div>
 <div class="full actions"><button type="submit" class="btn find" id="regSubmitBtn" data-i18n="createProfileBtn">Create Profile</button><button type="button" class="btn light" data-i18n="cancelBtn" onclick="closeModal('registrationModal')">Cancel</button></div>

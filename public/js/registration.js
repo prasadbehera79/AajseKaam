@@ -119,6 +119,13 @@ function submitRegistration(e){
  const members=read(STORAGE.members);if(members.some(m=>m.mobile===mobile&&m.role===role)){markFieldError("regMobileField",true);toast(t("toastDuplicateMobile"),true);return}
  const photo=$("regPhoto")?.files?.[0];const cert=$("regCharacterCertificate")?.files?.[0];
  const member={id:makeId("MEM"),name,mobile,location:locationText,role,photoName:photo?.name||"",characterCertificateName:cert?.name||"",latitude:$("regLat")?.value||"",longitude:$("regLng")?.value||"",createdAt:new Date().toISOString()};
+ const address=document.querySelector("#regAddress")?.value.trim()||"";
+const idProofType=document.querySelector("#regIdProofType")?.value||"";
+const idProofLast4=document.querySelector("#regIdProofLast4")?.value.trim()||"";
+
+member.address=address;
+member.idProofType=idProofType;
+member.idProofLast4=idProofLast4;
  const ids=['regSkill','regServiceArea','regAvailability','regExperience','regBusinessName','regProjectType','regPlotSize','regFloors','regBudget','regTeamSize','regRequirement','regVehicleType','regVehicleNo','regLicenseNo','regPropertyType','regPropertySize','regServiceName','regNotes'];
  ids.forEach(id=>{const el=$(id);if(el)member[id.replace(/^reg/,'').replace(/^[A-Z]/,c=>c.toLowerCase())]=el.value.trim()});
  member.propertyPhotoNames=readFileNames('regPropertyPhotos');
